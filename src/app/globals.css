@@ -1,5 +1,9 @@
 :root {
   --foreground: #171717;
+  --primary-color: #39cec8;
+  --secondary-color: #204079;
+  --subtitle-color: #545F7D;
+  --input-color: rgba(84, 95, 125, 0.15);
 }
 
 *,
@@ -16,6 +20,7 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 10%;
   text-rendering: optimizeLegibility;
   font-family: var(--font-avenir), system-ui, sans-serif;
   color: var(--foreground);
@@ -23,4 +28,9 @@ body {
 
 .screen-height {
   min-height: 100dvh;
+}
+
+.form-control {
+  height: 50px;
+  padding: 6px 0px 6px 0px;
 }
