@@ -1,7 +1,12 @@
 import "@mantine/core/styles.css";
 import localFont from "next/font/local";
-// ColorSchemeScript,
-import { MantineProvider, mantineHtmlProps } from "@mantine/core";
+import {
+  ColorSchemeScript,
+  MantineColorsTuple,
+  MantineProvider,
+  MantineThemeOverride,
+  mantineHtmlProps,
+} from "@mantine/core";
 import "./globals.css";
 
 const font = localFont({
@@ -38,8 +43,26 @@ const font = localFont({
   variable: "--font-avenir",
 });
 
-const mantineTheme = {
+const tealCustom: MantineColorsTuple = [
+  "#e6f9f8",
+  "#c9f2f0",
+  "#9ee8e4",
+  "#72ded9",
+  "#48d4ce",
+  "#39cec8",
+  "#31b8b3",
+  "#2ba29d",
+  "#1e7471",
+  "#0f4a48",
+];
+
+const mantineTheme: MantineThemeOverride = {
   fontFamily: "var(--font-avenir), sans-serif",
+  colors: {
+    tealCustom,
+  },
+  primaryColor: "tealCustom",
+  primaryShade: 5,
 };
 
 export default function RootLayout({
@@ -49,11 +72,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" {...mantineHtmlProps} className={font.variable}>
-      {/* <head>
-        <ColorSchemeScript />
-      </head> */}
+      <head>
+        <ColorSchemeScript forceColorScheme="light" />
+      </head>
       <body>
-        <MantineProvider theme={mantineTheme}>{children}</MantineProvider>
+        <MantineProvider forceColorScheme="light" theme={mantineTheme}>
+          {children}
+        </MantineProvider>
       </body>
     </html>
   );

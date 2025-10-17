@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./imageSection.module.scss";
+import styles from "./image-section.module.scss";
 
 const ImageSection = () => {
   const [src, setSrc] = useState("/images/sign-in-banner.webp");
