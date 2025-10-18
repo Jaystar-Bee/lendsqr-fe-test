@@ -1,0 +1,23 @@
+.container {
+    font-family: var(--work-sans-font);
+
+    .table {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 20px;
+        border: 1px solid var(--title-color)/6;
+        box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+
+
+    }
+
+    & h1 {
+        font-weight: 500;
+        font-size: 24px;
+        color: var(--title-color);
+    }
+
+    & section {
+        margin-top: 40px;
+    }
+}

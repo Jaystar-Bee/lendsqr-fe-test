@@ -1,9 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 :root {
   --foreground: #171717;
   --primary-color: #39cec8;
   --secondary-color: #204079;
   --subtitle-color: #545F7D;
+  --title-color: #213F7D;
   --input-color: rgba(84, 95, 125, 0.15);
+  --work-sans-font: "Work Sans", sans-serif;
+  --roboto-font: "Roboto", sans-serif;
 }
 
 *,
@@ -22,6 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 10%;
   text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
   font-family: var(--font-avenir), system-ui, sans-serif;
   color: var(--foreground);
 }
