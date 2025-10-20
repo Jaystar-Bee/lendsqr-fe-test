@@ -4,6 +4,7 @@ import styles from "./side-bar.module.scss";
 import Image from "next/image";
 import Iconify from "@/components/element/icons/iconify";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 const sidebarList = [
   {
@@ -133,10 +134,40 @@ const sidebarList = [
 ];
 const SideBar = () => {
   const pathname = usePathname();
+  const sectionRef = useRef<HTMLUListElement>(null);
+  const [sectionIsAllVisible, setSectionIsAllVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = section;
+      const isBottom = scrollTop + clientHeight >= scrollHeight - 5;
+      if (isBottom) {
+        setSectionIsAllVisible(true);
+      } else {
+        setSectionIsAllVisible(false);
+      }
+    };
+
+    section.addEventListener("scroll", handleScroll);
+    return () => section.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className={styles.container}>
-      <ul className={styles.section}>
+      <div className={styles.organization}>
+        <Image
+          src="/icons/sidebar/switch.svg"
+          alt="switch organization"
+          width={16}
+          height={16}
+        />
+        <p>Switch Organization</p>
+        <Iconify icon="ep:arrow-down-bold" />
+      </div>
+      <ul ref={sectionRef} className={styles.section}>
         {sidebarList.map((item, index) => (
           <li key={index} className={styles["section-item"]}>
             {item.title && (
@@ -172,6 +203,23 @@ const SideBar = () => {
           </li>
         ))}
       </ul>
+      <div
+        className={`${styles.footer} ${
+          !sectionIsAllVisible ? styles.shadow : ""
+        }`}
+      >
+        <div className={styles["footer-logout"]}>
+          <Image
+            src="/icons/sidebar/logout.svg"
+            alt="switch organization"
+            width={16}
+            height={16}
+          />
+          <p>Logout</p>
+        </div>
+
+        <p className={styles["footer-version"]}>v1.2.0</p>
+      </div>
     </div>
   );
 };

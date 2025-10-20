@@ -1,8 +1,10 @@
-@use "../../../app/variables.scss" as *;
+@use "../../../app/variables.scss"as *;
+
 .formCover {
     max-width: 447px;
     margin-left: 10%;
     width: 85%;
+
 
     @media (max-width: map-get($breakpoints, "md")) {
         margin-left: auto;
@@ -46,13 +48,14 @@
                 font-size: 12px;
             }
         }
+
         .show-password-button {
             font-weight: 600;
             font-size: 12px;
             padding: 0;
             margin-right: 10px;
         }
-        
+
         .button {
             margin-top: 24px;
             width: 100%;
