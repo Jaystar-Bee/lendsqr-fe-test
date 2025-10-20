@@ -5,142 +5,17 @@ import Image from "next/image";
 import Iconify from "@/components/element/icons/iconify";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { sidebarList } from "@/app/constants/dashboard-navs";
 
-const sidebarList = [
-  {
-    links: [
-      {
-        name: "Dashboard",
-        link: "/dashboard",
-        icon: "/icons/sidebar/dashboard.svg",
-      },
-    ],
-  },
-  {
-    title: "Customers",
-    links: [
-      {
-        name: "Users",
-        link: "/dashboard/users",
-        icon: "/icons/sidebar/users.svg",
-      },
-      {
-        name: "Guarantors",
-        link: "/dashboard/guarantors",
-        icon: "/icons/sidebar/guarantors.svg",
-      },
-      {
-        name: "Loans",
-        link: "/dashboard/loans",
-        icon: "/icons/sidebar/loan.svg",
-      },
-      {
-        name: "Decision Models",
-        link: "/dashboard/decision-models",
-        icon: "/icons/sidebar/models.svg",
-      },
-      {
-        name: "Savings",
-        link: "/dashboard/savings",
-        icon: "/icons/sidebar/savings.svg",
-      },
-      {
-        name: "Loan Requests",
-        link: "/dashboard/loan-requests",
-        icon: "/icons/sidebar/loan-requests.svg",
-      },
-      {
-        name: "Whitelist",
-        link: "/dashboard/whitelist",
-        icon: "/icons/sidebar/whitelist.svg",
-      },
-      {
-        name: "Karma",
-        link: "/dashboard/karma",
-        icon: "/icons/sidebar/karma.svg",
-      },
-    ],
-  },
-  {
-    title: "Businesses",
-    links: [
-      {
-        name: "Organization",
-        link: "/dashboard/organization",
-        icon: "/icons/sidebar/organization.svg",
-      },
-      {
-        name: "Loan Products",
-        link: "/dashboard/loan-products",
-        icon: "/icons/sidebar/loan-requests.svg",
-      },
-      {
-        name: "Savings Products",
-        link: "/dashboard/savings-products",
-        icon: "/icons/sidebar/savings-products.svg",
-      },
-      {
-        name: "Fees and Charges",
-        link: "/dashboard/fees-and-charges",
-        icon: "/icons/sidebar/fees-and-charges.svg",
-      },
-      {
-        name: "Transactions",
-        link: "/dashboard/transactions",
-        icon: "/icons/sidebar/transactions.svg",
-      },
-      {
-        name: "Services",
-        link: "/dashboard/services",
-        icon: "/icons/sidebar/services.svg",
-      },
-      {
-        name: "Service Account",
-        link: "/dashboard/service-account",
-        icon: "/icons/sidebar/service-account.svg",
-      },
-      {
-        name: "Settlements",
-        link: "/dashboard/settlements",
-        icon: "/icons/sidebar/settlements.svg",
-      },
-      {
-        name: "Reports",
-        link: "/dashboard/reports",
-        icon: "/icons/sidebar/reports.svg",
-      },
-    ],
-  },
-  {
-    title: "Settings",
-    links: [
-      {
-        name: "Preferences",
-        link: "/dashboard/preferences",
-        icon: "/icons/sidebar/preferences.svg",
-      },
-      {
-        name: "Fees and Pricing",
-        link: "/dashboard/fees-and-pricing",
-        icon: "/icons/sidebar/fees-and-pricing.svg",
-      },
-      {
-        name: "Audit Logs",
-        link: "/dashboard/audit-logs",
-        icon: "/icons/sidebar/audit-logs.svg",
-      },
-      {
-        name: "Systems Messages",
-        link: "/dashboard/systems-messages",
-        icon: "/icons/sidebar/systems-messages.svg",
-      }
-    ],
-  },
-];
-const SideBar = () => {
+interface PropsType {
+  onRouteClick?: (route: string) => void;
+}
+
+const SideBar = ({ onRouteClick }: PropsType) => {
   const pathname = usePathname();
   const sectionRef = useRef<HTMLUListElement>(null);
   const [sectionIsAllVisible, setSectionIsAllVisible] = useState(false);
+  const [sectionIsAtTop, setSectionIsAtTop] = useState(true);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -149,10 +24,16 @@ const SideBar = () => {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = section;
       const isBottom = scrollTop + clientHeight >= scrollHeight - 5;
+      const isTop = scrollTop === 0;
       if (isBottom) {
         setSectionIsAllVisible(true);
       } else {
         setSectionIsAllVisible(false);
+      }
+      if(isTop) {
+        setSectionIsAtTop(true);
+      } else {
+        setSectionIsAtTop(false);
       }
     };
 
@@ -172,7 +53,7 @@ const SideBar = () => {
         <p>Switch Organization</p>
         <Iconify icon="ep:arrow-down-bold" />
       </div>
-      <ul ref={sectionRef} className={styles.section}>
+      <ul ref={sectionRef} className={`${styles.section} ${!sectionIsAtTop ? styles.shadow : ""}`}>
         {sidebarList.map((item, index) => (
           <li key={index} className={styles["section-item"]}>
             {item.title && (
@@ -189,6 +70,7 @@ const SideBar = () => {
                         pathname === link.link) &&
                       styles["active"]
                     }`}
+                    onClick={() => onRouteClick ? onRouteClick(link.link) : null}
                   >
                     {link?.icon?.includes("svg") ? (
                       <Image

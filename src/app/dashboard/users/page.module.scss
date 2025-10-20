@@ -1,3 +1,5 @@
+@use "../../../app/variables.scss" as *;
+
 .container {
     font-family: var(--work-sans-font);
 
@@ -8,24 +10,39 @@
         border: 1px solid var(--title-color)/6;
         box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
         overflow-x: auto;
-
-
     }
 
     & h1 {
         font-weight: 500;
         font-size: 24px;
         color: var(--title-color);
+
+        @media (max-width: map-get($breakpoints, "xs")) {
+            font-size: 20px;
+            font-weight: 600;
+        }
     }
 
     & section {
         margin-top: 40px;
+
+        @media (max-width: map-get($breakpoints, "xs")) {
+            margin-top: 25px;
+        }
     }
 
     .pagination {
 
         display: flex;
         justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        @media (max-width: map-get($breakpoints, "sm")) {
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 20px;
+        }
 
         &-info {
             display: flex;
@@ -48,6 +65,8 @@
             color: var(--title-color);
             border-radius: 8px;
             font-weight: 500;
+            padding: 2px 0px;
+            width:fit-content;
             box-shadow: none;
             transition: all 0.2s ease;
 

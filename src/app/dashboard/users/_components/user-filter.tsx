@@ -1,8 +1,10 @@
 import { userFilterSchema } from "@/app/schemas/user-filter.schema";
 import Iconify from "@/components/element/icons/iconify";
 import { Button, Select, TextInput } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import styles from "./user-filter.module.scss";
+import { useState } from "react";
 
 const UserFilter = () => {
   const form = useForm({
@@ -23,11 +25,12 @@ const UserFilter = () => {
       return {};
     },
   });
+
+  function handleSubmit(values: typeof form.values) {
+    console.log(values);
+  }
   return (
-    <form
-      onSubmit={form.onSubmit((values) => console.log(values))}
-      className={styles.form}
-    >
+    <form onSubmit={form.onSubmit(handleSubmit)} className={styles.form}>
       <Select
         label="Organization"
         placeholder="Select"
@@ -62,6 +65,21 @@ const UserFilter = () => {
           input: styles["form-control--input"],
         }}
       />
+      <div className={styles["form-date"]}>
+        <DateInput
+          valueFormat="YYYY MMM DD"
+          label="Date"
+          placeholder="Date input"
+          classNames={{
+            input: styles["form-date--input"],
+            label: styles["form-control--label"],
+          }}
+        />
+        <Iconify
+          icon="zondicons:calendar"
+          className={styles["form-date--icon"]}
+        />
+      </div>
       <TextInput
         mt={"lg"}
         label="Phone Number"
@@ -73,7 +91,7 @@ const UserFilter = () => {
         }}
       />
 
-       <Select
+      <Select
         mt={"lg"}
         label="Status"
         placeholder="Select"
@@ -90,12 +108,23 @@ const UserFilter = () => {
         }}
       />
 
-      <div>
-        <Button type="reset" onClick={() => form.reset()}>
+      <div className={styles["form-actions"]}>
+        <Button
+          type="reset"
+          fullWidth
+          className={styles["form-actions--btn"]}
+          variant="outline"
+          color="var(--subtitle-color)"
+          onClick={() => form.reset()}
+        >
           Reset
         </Button>
-        <Button type="submit">Filter</Button>
+        <Button type="submit" fullWidth className={styles["form-actions--btn"]}>
+          Filter
+        </Button>
       </div>
+
+      {}
     </form>
   );
 };

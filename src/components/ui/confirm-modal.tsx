@@ -27,7 +27,7 @@ const ConfirmModal = ({
           {description && <p className={styles["content-description"]}>{description}</p>}
         </div>
         <div className={styles.actions}>
-          <Button variant="outline" color="gray" size="md" onClick={close} fullWidth>
+          <Button variant="outline" color="var(--subtitle-color)" size="md" onClick={close} fullWidth>
             Cancel
           </Button>
           <Button size="md" onClick={confirm} fullWidth color={color || ""}>

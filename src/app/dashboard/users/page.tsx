@@ -6,8 +6,16 @@ import styles from "./page.module.scss";
 import { useState } from "react";
 import { NativeSelect } from "@mantine/core";
 import Iconify from "@/components/element/icons/iconify";
+import { useMediaQuery } from '@mantine/hooks';
+
+
+
+
 
 const UserPage = () => {
+
+    const isSm = useMediaQuery('(max-width: 480px)');
+    const isLg = useMediaQuery('(min-width: 1024px)');
   const [activePage, setPage] = useState(1);
   return (
     <div className={styles.container}>
@@ -36,6 +44,7 @@ const UserPage = () => {
           value={activePage}
           onChange={setPage}
           total={10}
+          size={isSm ? "xs" : isLg ? "md" : "sm"}
           boundaries={1}
           siblings={1}
           classNames={{

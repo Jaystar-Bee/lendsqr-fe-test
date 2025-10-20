@@ -1,7 +1,7 @@
 "use client";
 import Iconify from "@/components/element/icons/iconify";
 import { USER_STATUS_E } from "@/types/extra-enums";
-import { Table, Menu } from "@mantine/core";
+import { Table, Menu, Popover } from "@mantine/core";
 import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
@@ -66,6 +66,21 @@ const UserTable = () => {
 
   function handleConfirm() {
     setOpenConfirmModal(false);
+  }
+
+  const Filter = () => {
+    return (
+      <Popover width={270} position="bottom" withArrow shadow="md">
+        <Popover.Target>
+          <div>
+           <Iconify icon="bx:filter" />
+          </div>
+        </Popover.Target>
+        <Popover.Dropdown>
+          <UserFilter />
+        </Popover.Dropdown>
+      </Popover>
+    )
   }
 
   const moreActions = (element: (typeof elements)[0]) => {
@@ -205,7 +220,7 @@ const UserTable = () => {
   ));
 
   return (
-    <div>
+    <div className={styles.table}>
       <Table verticalSpacing="lg">
         <Table.Thead>
           <Table.Tr
@@ -216,33 +231,32 @@ const UserTable = () => {
           >
             <Table.Th className={styles["head-th"]}>
               <span>Organization</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
             <Table.Th className={styles["head-th"]}>
               <span>Username</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
             <Table.Th className={styles["head-th"]}>
               <span>Email</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
             <Table.Th className={styles["head-th"]}>
               <span>Phone Number</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
             <Table.Th className={styles["head-th"]}>
               <span>Date Joined</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
             <Table.Th className={styles["head-th"]}>
               <span>Status</span>
-              <Iconify icon="fluent:filter-24-filled" />
+              <Filter />
             </Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-      <UserFilter />
       <ConfirmModal
         opened={openConfirmModal}
         title={selectedActionElement?.modal?.title}
