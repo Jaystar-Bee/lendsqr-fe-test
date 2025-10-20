@@ -1,0 +1,156 @@
+@use "./../../../app/variables.scss"as *;
+
+
+%flex-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--title-color);
+}
+
+%spacing {
+    padding: 0px 10px 0px 40px;
+}
+
+%link-text {
+    @media (max-width: map-get($breakpoints, "sm")) {
+        font-size: 14px;
+    }
+}
+
+.container {
+    padding-top: 30px;
+    font-family: var(--work-sans-font);
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+
+    @media (max-width: map-get($breakpoints, "lg")) {
+        padding-top: 10px;
+        max-height: calc(100dvh - 61px);
+    }
+
+    & ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        & a {
+            text-decoration: none;
+            color: var(--title-color);
+            transition: all 0.2s ease-in-out;
+        }
+    }
+
+    .footer {
+        @extend %spacing;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-top: 1px solid var(--border-color);
+
+        @media (max-width: map-get($breakpoints, "xs")) {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        &.shadow {
+            box-shadow: 0px -10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        &-logout {
+            @extend %flex-center;
+            @extend %link-text;
+            color: var(--subtitle-color);
+            margin-bottom: 30px;
+            cursor: pointer;
+
+            @media (max-width: map-get($breakpoints, "sm")) {
+                margin-bottom: 25px;
+            }
+        }
+
+        &-version {
+            font-size: 12px;
+            color: var(--title-color);
+        }
+    }
+
+    .organization {
+        @extend %spacing;
+        @extend %flex-center;
+        @extend %link-text;
+        margin-bottom: 40px;
+        cursor: pointer;
+
+        @media (max-width: map-get($breakpoints, "xs")) {
+            margin-bottom: 25px;
+        }
+
+        
+    }
+
+    .section {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0%;
+        overflow-y: auto;
+
+        &.shadow {
+            box-shadow: inset 0 4px 25px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-item {
+            margin-bottom: 40px;
+
+            @media (max-width: map-get($breakpoints, "xs")) {
+                margin-bottom: 25px;
+            }
+
+            &--title {
+                @extend %spacing;
+                font-weight: 500;
+                font-size: 12px;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+            }
+        }
+
+        // .link {
+
+        .link-item {
+            margin-bottom: 15px;
+
+            @media (max-width: map-get($breakpoints, "xs")) {
+                margin-bottom: 8px;
+            }
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            &--link {
+                @extend %flex-center;
+                @extend %link-text;
+                width: 100%;
+                padding: 8px 40px;
+                border-left: 4px solid transparent;
+                transition: all 0.2s ease-in-out;
+                opacity: 0.6;
+
+                &:hover {
+                    background-color: var(--mantine-color-tealCustom-0);
+                    opacity: 1;
+                }
+
+                &.active {
+                    background-color: var(--mantine-color-tealCustom-0);
+                    border-color: var(--primary-color);
+                    opacity: 1;
+                }
+            }
+        }
+
+
+        // }
+    }
+}

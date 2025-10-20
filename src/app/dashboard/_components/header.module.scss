@@ -1,0 +1,200 @@
+@use "../../../app/variables.scss"as *;
+
+%avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+%avatar--image {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+
+    @media (max-width: map-get($breakpoints, "xs")) {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+.profile {
+
+    &-drawer {
+
+        &--content {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            justify-content: space-between;
+            height: calc(100dvh - 70px);
+        }
+
+        &--body {
+            overflow-y: hidden;
+            margin-top: 15px;
+        }
+    }
+
+    &-list {
+        margin-top: 20px;
+        border-top: 1px solid var(--border-color);
+        list-style: none;
+        padding-top: 20px;
+
+
+        &--item {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: var(--title-color);
+
+            & span {
+                margin-top: 3px;
+            }
+
+            &:hover {
+                background-color: var(--border-color);
+            }
+        }
+    }
+}
+
+
+.more-drawer {
+    &--body {
+        padding: 0px;
+        max-height: calc(100dvh - 60px);
+        overflow-y: hidden;
+    }
+}
+
+.header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: 0 40px;
+    box-shadow: -3px 0px 20px rgba(0, 0, 0, 0.04);
+
+    @media (max-width: map-get($breakpoints, "lg")) {
+        justify-content: space-between;
+        height: 75px;
+    }
+
+    @media (max-width: map-get($breakpoints, "xs")) {
+        padding: 0 20px;
+    }
+
+    &.desktop {
+        @media (max-width: map-get($breakpoints, "lg")) {
+            display: none;
+        }
+    }
+
+    &.mobile {
+        @media (min-width: map-get($breakpoints, "lg")) {
+            display: none;
+        }
+
+    }
+
+
+
+    &-logo {
+        width: 283px;
+        display: flex;
+        align-items: center;
+
+        @media (max-width: map-get($breakpoints, "lg")) {
+            width: auto;
+        }
+    }
+
+    &-nav {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &--search {
+            height: 40px;
+            width: 60%;
+            max-width: 400px;
+
+            @media (max-width: map-get($breakpoints, "xl")) {
+                max-width: 300px;
+            }
+
+            @media (max-width: map-get($breakpoints, "lg")) {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: map-get($breakpoints, "lg")) {
+            display: none;
+        }
+    }
+
+    &-right {
+        display: flex;
+        color: var(--seconday-color);
+        align-items: center;
+        gap: 40px;
+
+        &>a {
+            color: var(--secondary-color);
+            font-family: var(--roboto-font);
+        }
+
+        &--icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .avatar {
+
+            @extend %avatar;
+
+            &-image {
+                @extend %avatar--image;
+            }
+        }
+
+        @media (max-width: map-get($breakpoints, "lg")) {
+            display: none;
+        }
+    }
+
+    /* MOBILE EXTRAS STARTS
+    } */
+    &-menu {
+        font-size: 28px;
+        color: var(--secondary-color)
+    }
+
+    .avatar {
+        @extend %avatar;
+
+        &-image {
+            @extend %avatar--image;
+        }
+    }
+
+    /* MOBILE EXTRAS ENDS
+    } */
+
+}

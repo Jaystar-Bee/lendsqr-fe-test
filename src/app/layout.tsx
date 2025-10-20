@@ -1,5 +1,9 @@
 import "@mantine/core/styles.css";
 import localFont from "next/font/local";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 import {
   ColorSchemeScript,
   MantineColorsTuple,
@@ -8,6 +12,8 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 import "./globals.css";
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 
 const font = localFont({
   src: [
@@ -64,6 +70,8 @@ const mantineTheme: MantineThemeOverride = {
   primaryColor: "tealCustom",
   primaryShade: 5,
 };
+
+
 
 export default function RootLayout({
   children,
