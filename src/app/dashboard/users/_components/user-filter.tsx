@@ -45,6 +45,7 @@ const UserFilter = () => {
           label: styles["form-control--label"],
           input: styles["form-control--input"],
         }}
+        comboboxProps={{ withinPortal: false }}
       />
       <TextInput
         mt={"lg"}
@@ -70,10 +71,12 @@ const UserFilter = () => {
           valueFormat="YYYY MMM DD"
           label="Date"
           placeholder="Date input"
+          maxDate={new Date()}
           classNames={{
             input: styles["form-date--input"],
             label: styles["form-control--label"],
           }}
+          popoverProps={{ withinPortal: false }}
         />
         <Iconify
           icon="zondicons:calendar"
@@ -106,6 +109,7 @@ const UserFilter = () => {
           label: styles["form-control--label"],
           input: styles["form-control--input"],
         }}
+        comboboxProps={{ withinPortal: false }}
       />
 
       <div className={styles["form-actions"]}>

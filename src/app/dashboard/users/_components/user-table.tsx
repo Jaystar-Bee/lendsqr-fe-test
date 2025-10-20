@@ -6,6 +6,7 @@ import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
 import { useState } from "react";
+import { useClickOutside } from "@mantine/hooks";
 import UserFilter from "./user-filter";
 
 const elements = [
@@ -69,19 +70,25 @@ const UserTable = () => {
   }
 
   const Filter = () => {
+    const [opened, setOpened] = useState(false);
     return (
-      <Popover width={270} position="bottom" withArrow shadow="md">
+      <Popover
+        width={270}
+        position="bottom"
+        withArrow
+        shadow="md"
+      >
         <Popover.Target>
-          <div>
-           <Iconify icon="bx:filter" />
+          <div onClick={() => setOpened(!opened)}>
+            <Iconify icon="bx:filter" />
           </div>
         </Popover.Target>
         <Popover.Dropdown>
           <UserFilter />
         </Popover.Dropdown>
       </Popover>
-    )
-  }
+    );
+  };
 
   const moreActions = (element: (typeof elements)[0]) => {
     return [
