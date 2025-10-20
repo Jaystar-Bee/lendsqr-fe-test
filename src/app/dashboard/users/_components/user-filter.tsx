@@ -31,87 +31,88 @@ const UserFilter = () => {
   }
   return (
     <form onSubmit={form.onSubmit(handleSubmit)} className={styles.form}>
-      <Select
-        label="Organization"
-        placeholder="Select"
-        data={["React", "Angular", "Vue", "Svelte"]}
-        rightSection={
-          <Iconify
-            icon="ep:arrow-down-bold"
-            className={styles["form-control--icon"]}
-          />
-        }
-        classNames={{
-          label: styles["form-control--label"],
-          input: styles["form-control--input"],
-        }}
-        comboboxProps={{ withinPortal: false }}
-      />
-      <TextInput
-        mt={"lg"}
-        label="Username"
-        placeholder="User"
-        classNames={{
-          label: styles["form-control--label"],
-          input: styles["form-control--input"],
-        }}
-      />
-      <TextInput
-        mt={"lg"}
-        label="Email"
-        placeholder="Email"
-        type="email"
-        classNames={{
-          label: styles["form-control--label"],
-          input: styles["form-control--input"],
-        }}
-      />
-      <div className={styles["form-date"]}>
-        <DateInput
-          valueFormat="YYYY MMM DD"
-          label="Date"
-          placeholder="Date input"
-          maxDate={new Date()}
+      <div className={styles["form-cover"]}>
+        <Select
+          label="Organization"
+          placeholder="Select"
+          data={["React", "Angular", "Vue", "Svelte"]}
+          rightSection={
+            <Iconify
+              icon="ep:arrow-down-bold"
+              className={styles["form-control--icon"]}
+            />
+          }
           classNames={{
-            input: styles["form-date--input"],
             label: styles["form-control--label"],
+            input: styles["form-control--input"],
           }}
-          popoverProps={{ withinPortal: false }}
+          comboboxProps={{ withinPortal: false }}
         />
-        <Iconify
-          icon="zondicons:calendar"
-          className={styles["form-date--icon"]}
+        <TextInput
+          mt={"lg"}
+          label="Username"
+          placeholder="User"
+          classNames={{
+            label: styles["form-control--label"],
+            input: styles["form-control--input"],
+          }}
+        />
+        <TextInput
+          mt={"lg"}
+          label="Email"
+          placeholder="Email"
+          type="email"
+          classNames={{
+            label: styles["form-control--label"],
+            input: styles["form-control--input"],
+          }}
+        />
+        <div className={styles["form-date"]}>
+          <DateInput
+            valueFormat="YYYY MMM DD"
+            label="Date"
+            placeholder="Date input"
+            maxDate={new Date()}
+            classNames={{
+              input: styles["form-date--input"],
+              label: styles["form-control--label"],
+            }}
+            popoverProps={{ withinPortal: false }}
+          />
+          <Iconify
+            icon="zondicons:calendar"
+            className={styles["form-date--icon"]}
+          />
+        </div>
+        <TextInput
+          mt={"lg"}
+          label="Phone Number"
+          placeholder="Phone Number"
+          type="tel"
+          classNames={{
+            label: styles["form-control--label"],
+            input: styles["form-control--input"],
+          }}
+        />
+
+        <Select
+          mt={"lg"}
+          label="Status"
+          placeholder="Select"
+          data={["React", "Angular", "Vue", "Svelte"]}
+          rightSection={
+            <Iconify
+              icon="ep:arrow-down-bold"
+              className={styles["form-control--icon"]}
+            />
+          }
+          classNames={{
+            label: styles["form-control--label"],
+            input: styles["form-control--input"],
+          }}
+          comboboxProps={{ withinPortal: false }}
         />
       </div>
-      <TextInput
-        mt={"lg"}
-        label="Phone Number"
-        placeholder="Phone Number"
-        type="tel"
-        classNames={{
-          label: styles["form-control--label"],
-          input: styles["form-control--input"],
-        }}
-      />
-
-      <Select
-        mt={"lg"}
-        label="Status"
-        placeholder="Select"
-        data={["React", "Angular", "Vue", "Svelte"]}
-        rightSection={
-          <Iconify
-            icon="ep:arrow-down-bold"
-            className={styles["form-control--icon"]}
-          />
-        }
-        classNames={{
-          label: styles["form-control--label"],
-          input: styles["form-control--input"],
-        }}
-        comboboxProps={{ withinPortal: false }}
-      />
-
       <div className={styles["form-actions"]}>
         <Button
           type="reset"

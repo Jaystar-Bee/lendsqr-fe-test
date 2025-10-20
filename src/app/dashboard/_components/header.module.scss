@@ -32,12 +32,12 @@
             flex-direction: column;
             padding-top: 20px;
             justify-content: space-between;
-            height: calc(100dvh - 70px);
+            height: calc(100dvh - 76px);
         }
 
         &--body {
             overflow-y: hidden;
-            margin-top: 15px;
+            padding-top: 15px;
         }
     }
 
@@ -74,7 +74,7 @@
 
 .more-drawer {
     &--body {
-        padding: 0px;
+        padding: 0px !important;
         max-height: calc(100dvh - 60px);
         overflow-y: hidden;
     }
