@@ -3,6 +3,7 @@
     height: calc(100dvh - 100px);
 
     .sidebar {
+        min-width: 260px;
         width: 283px;
         box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
         overflow-y: hidden;

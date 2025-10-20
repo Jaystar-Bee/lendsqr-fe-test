@@ -10,6 +10,7 @@
   --title-color: #213F7D;
   --input-color: rgba(84, 95, 125, 0.15);
   --border-color: rgba(33, 63, 125, 0.1);
+  --dark-border-color: rgba(33, 63, 125, 0.2);
   --work-sans-font: "Work Sans", sans-serif;
   --roboto-font: "Roboto", sans-serif;
 }

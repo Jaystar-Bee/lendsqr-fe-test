@@ -12,7 +12,7 @@ const sidebarList = [
       {
         name: "Dashboard",
         link: "/dashboard",
-        icon: "lets-icons:home-duotone",
+        icon: "/icons/sidebar/dashboard.svg",
       },
     ],
   },
@@ -129,6 +129,11 @@ const sidebarList = [
         link: "/dashboard/audit-logs",
         icon: "/icons/sidebar/audit-logs.svg",
       },
+      {
+        name: "Systems Messages",
+        link: "/dashboard/systems-messages",
+        icon: "/icons/sidebar/systems-messages.svg",
+      }
     ],
   },
 ];
@@ -190,7 +195,7 @@ const SideBar = () => {
                         src={link.icon}
                         alt={link.name}
                         width={16}
-                        height={12.8}
+                        height={16}
                       />
                     ) : (
                       <Iconify icon={link.icon} />

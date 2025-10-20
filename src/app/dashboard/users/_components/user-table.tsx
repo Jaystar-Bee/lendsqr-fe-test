@@ -6,7 +6,7 @@ import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
 import { useState } from "react";
-import { USER_INTERFACE } from "@/types/user-types";
+import UserFilter from "./user-filter";
 
 const elements = [
   {
@@ -242,6 +242,7 @@ const UserTable = () => {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
+      <UserFilter />
       <ConfirmModal
         opened={openConfirmModal}
         title={selectedActionElement?.modal?.title}
