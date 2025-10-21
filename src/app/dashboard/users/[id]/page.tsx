@@ -5,16 +5,15 @@ import GeneralDetails from "./_components/general-details";
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { USER_DATA_T } from "@/types/user-types";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useIndexedDBUsers } from "@/hooks/useUserDB";
 import { notifications } from "@mantine/notifications";
 import { USER_STATUS_E } from "@/types/extra-enums";
-import { Box, Loader, LoadingOverlay, Stack } from "@mantine/core";
+import { Box, LoadingOverlay } from "@mantine/core";
 
-interface PropsTypes {
-  params: { id: string };
-}
-const UserDetailPage = ({ params }: PropsTypes) => {
+const UserDetailPage = () => {
+  const params = useParams();
+  const id = params?.id;
   const { ready, getUserById, patchUser } = useIndexedDBUsers();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -22,10 +21,9 @@ const UserDetailPage = ({ params }: PropsTypes) => {
   const [user, setUser] = useState<USER_DATA_T>();
   useEffect(() => {
     if (!ready || user) return;
-    const id = params.id;
     (async () => {
       try {
-        const user = await getUserById(id);
+        const user = await getUserById(id as string);
         console.log(user);
         if (user) {
           setUser(user);
@@ -59,7 +57,7 @@ const UserDetailPage = ({ params }: PropsTypes) => {
         status: USER_STATUS_E.BLACKLISTED,
       };
     });
-    patchUser(params.id, { status: USER_STATUS_E.BLACKLISTED });
+    patchUser(id as string, { status: USER_STATUS_E.BLACKLISTED });
   }
   function handleActivate() {
     if (!user) return;
@@ -70,7 +68,7 @@ const UserDetailPage = ({ params }: PropsTypes) => {
         status: USER_STATUS_E.ACTIVE,
       };
     });
-    patchUser(params.id, { status: USER_STATUS_E.ACTIVE });
+    patchUser(id as string, { status: USER_STATUS_E.ACTIVE });
   }
 
   return (
