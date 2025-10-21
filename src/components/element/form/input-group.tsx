@@ -1,5 +1,4 @@
 "use client";
-import { TextInput } from "@mantine/core";
 import { ReactNode, useState } from "react";
 import styles from "./input-group.module.scss";
 

@@ -71,7 +71,7 @@ const UserFilter = () => {
       status:
         (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
     });
-  }, []);
+  }, [form]);
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)} className={styles.form}>
