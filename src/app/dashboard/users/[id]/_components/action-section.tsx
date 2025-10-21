@@ -8,8 +8,8 @@ import { useState } from "react";
 
 interface ActionSectionProps {
   status?: USER_STATUS_E;
-  onBlacklist?: () => void;
-  onActivate?: () => void;
+  onBlacklist: () => void;
+  onActivate: () => void;
 }
 
 interface ConfirmModalProps {
@@ -45,15 +45,9 @@ const ActionSection = ({
   }
 
   function handleConfirm() {
-    if (
-      selectedActionElement?.type === USER_STATUS_E.BLACKLISTED &&
-      onBlacklist
-    ) {
+    if (selectedActionElement?.type === USER_STATUS_E.BLACKLISTED) {
       onBlacklist();
-    } else if (
-      selectedActionElement?.type === USER_STATUS_E.ACTIVE &&
-      onActivate
-    ) {
+    } else if (selectedActionElement?.type === USER_STATUS_E.ACTIVE) {
       onActivate();
     }
 
