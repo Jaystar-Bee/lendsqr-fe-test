@@ -3,7 +3,7 @@ import { Box, LoadingOverlay, Pagination } from "@mantine/core";
 import CardSection from "./_components/card-section";
 import UserTable from "./_components/user-table";
 import styles from "./page.module.scss";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { NativeSelect } from "@mantine/core";
 import Iconify from "@/components/element/icons/iconify";
 import { useMediaQuery } from "@mantine/hooks";
@@ -12,7 +12,7 @@ import { USER_DATA_T, USER_FILTER_T } from "@/types/user-types";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
 
-const UserPage = () => {
+const UserPageContent = () => {
   const searchParams = useSearchParams();
 
   const { ready, saveUsers, getAllUsers, patchUser } = useIndexedDBUsers();
@@ -33,7 +33,7 @@ const UserPage = () => {
         }
         return item;
       });
-    })
+    });
     setUsers((prev) => {
       return prev.map((item) => {
         if (item.id === id) {
@@ -41,12 +41,21 @@ const UserPage = () => {
         }
         return item;
       });
-    })
+    });
     patchUser(id, user);
   }
 
-  // FILTER
-  function handleFilter(filters: USER_FILTER_T) {
+  useEffect(() => {
+    const filters = {
+      organization: searchParams.get("organization") || "",
+      username: searchParams.get("username") || "",
+      email: searchParams.get("email") || "",
+      date: searchParams.get("date") || "",
+      phoneNumber: searchParams.get("phoneNumber") || "",
+      status:
+        (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
+    };
+    setIsLoading(true);
     if (
       filters.status ||
       filters.date ||
@@ -99,22 +108,8 @@ const UserPage = () => {
       );
       setPage(1);
     }
-  }
-
-  useEffect(() => {
-    const filter = {
-      organization: searchParams.get("organization") || "",
-      username: searchParams.get("username") || "",
-      email: searchParams.get("email") || "",
-      date: searchParams.get("date") || "",
-      phoneNumber: searchParams.get("phoneNumber") || "",
-      status:
-        (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
-    };
-    setIsLoading(true);
-    handleFilter(filter);
     setIsLoading(false);
-  }, [searchParams, isLoading, users]);
+  }, [searchParams, users]);
 
   // Init
 
@@ -191,6 +186,14 @@ const UserPage = () => {
         ></Pagination>
       </section>
     </div>
+  );
+};
+
+const UserPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserPageContent />
+    </Suspense>
   );
 };
 

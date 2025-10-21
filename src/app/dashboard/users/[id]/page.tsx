@@ -24,7 +24,6 @@ const UserDetailPage = () => {
     (async () => {
       try {
         const user = await getUserById(id as string);
-        console.log(user);
         if (user) {
           setUser(user);
         } else {
@@ -46,7 +45,7 @@ const UserDetailPage = () => {
         setIsLoading(false);
       }
     })();
-  }, [getUserById, router, ready, isLoading]);
+  }, [getUserById, router, ready, id, user]);
 
   function handleBlacklist() {
     if (!user) return;

@@ -147,7 +147,7 @@ const UserTable = ({
         main.scroll({ top: 300, behavior: "smooth" });
       }
     }
-  }, [searchParams, users]);
+  }, [searchParams, isUpdatingStatus]);
 
   const rows = users.map((user) => (
     <Table.Tr key={user?.id} onClick={() => router.push(`/dashboard/users/${user?.id}`)}>
