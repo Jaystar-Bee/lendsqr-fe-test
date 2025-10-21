@@ -1,7 +1,8 @@
 import "@mantine/core/styles.css";
 import localFont from "next/font/local";
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import { Notifications } from "@mantine/notifications";
 
 dayjs.extend(customParseFormat);
 import {
@@ -12,8 +13,9 @@ import {
   mantineHtmlProps,
 } from "@mantine/core";
 import "./globals.css";
-import '@mantine/core/styles.css';
-import '@mantine/dates/styles.css';
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
+import "@mantine/notifications/styles.css";
 
 const font = localFont({
   src: [
@@ -71,8 +73,6 @@ const mantineTheme: MantineThemeOverride = {
   primaryShade: 5,
 };
 
-
-
 export default function RootLayout({
   children,
 }: {
@@ -85,6 +85,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider forceColorScheme="light" theme={mantineTheme}>
+          <Notifications />
           {children}
         </MantineProvider>
       </body>

@@ -31,7 +31,21 @@ const tabList = [
   },
 ];
 
-const OverviewSection = () => {
+interface PropsTypes {
+  userName?: string;
+  userCode?: string;
+  tierStars?: number;
+  accountBalance?: string;
+  bankAccount?: string;
+}
+
+const OverviewSection = ({
+  userName,
+  userCode,
+  tierStars,
+  accountBalance,
+  bankAccount,
+}: PropsTypes) => {
   const [activeTab, setActiveTab] = useState<string | null>("general_details");
   return (
     <div className={styles.container}>
@@ -41,20 +55,20 @@ const OverviewSection = () => {
             <Iconify icon="uil:user" />
           </div>
           <div className={styles["details-profile--info"]}>
-            <h1>Grace Effiom</h1>
-            <p>LSQFf587g90</p>
+            <h1>{userName}</h1>
+            <p>{userCode}</p>
           </div>
         </div>
         <div className={styles["details-divide"]}></div>
 
         <div className={styles["details-rating"]}>
           <h2>User&apos;s Tier</h2>
-          <Rating value={3} readOnly count={3} />
+          <Rating value={tierStars} readOnly count={3} />
         </div>
         <div className={styles["details-divide"]}></div>
         <div className={styles["details-balance"]}>
-          <h2>₦200,000.00</h2>
-          <p>9912345678/Providus Bank</p>
+          <h2>{accountBalance}</h2>
+          <p>{bankAccount}</p>
         </div>
       </div>
 

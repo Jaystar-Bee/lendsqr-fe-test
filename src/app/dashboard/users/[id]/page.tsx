@@ -3,27 +3,100 @@ import ActionSection from "./_components/action-section";
 import OverviewSection from "./_components/overview-section";
 import GeneralDetails from "./_components/general-details";
 import styles from "./page.module.scss";
+import { useEffect, useState } from "react";
+import { USER_DATA_T } from "@/types/user-types";
+import { useRouter } from "next/navigation";
+import { useIndexedDBUsers } from "@/hooks/useUserDB";
+import { notifications } from "@mantine/notifications";
+import { USER_STATUS_E } from "@/types/extra-enums";
 
-const UserDetailPage = () => {
+interface PropsTypes {
+  params: { id: string };
+}
+const UserDetailPage = ({ params }: PropsTypes) => {
+  const { ready, getUserById, patchUser } = useIndexedDBUsers();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [user, setUser] = useState<USER_DATA_T>();
+  useEffect(() => {
+    if (!ready || user) return;
+    const id = params.id;
+    (async () => {
+      try {
+        const user = await getUserById(id);
+        console.log(user);
+        if (user) {
+          setUser(user);
+        } else {
+          notifications.show({
+            title: "User not found",
+            message: "Please check the user id",
+            color: "red",
+          });
+          router.push("/dashboard/users");
+        }
+      } catch (error) {
+        notifications.show({
+          title: "User not found",
+          message: error?.toString(),
+          color: "red",
+        });
+        router.push("/dashboard/users");
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [getUserById, router, ready, isLoading]);
+
   function handleBlacklist() {
-    console.log("blacklist");
+    if (!user) return;
+    setUser((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        status: USER_STATUS_E.BLACKLISTED,
+      };
+    });
+    patchUser(params.id, { status: USER_STATUS_E.BLACKLISTED });
   }
   function handleActivate() {
-    console.log("activate");
+    if (!user) return;
+    setUser((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        status: USER_STATUS_E.ACTIVE,
+      };
+    });
+    patchUser(params.id, { status: USER_STATUS_E.ACTIVE });
   }
+
   return (
     <div className={styles.container}>
       <section>
         <ActionSection
+          status={user?.status}
           onBlacklist={() => handleBlacklist()}
           onActivate={() => handleActivate()}
         />
       </section>
       <section>
-        <OverviewSection />
+        <OverviewSection
+          userName={user?.personal_information?.full_name}
+          userCode={user?.user_code}
+          tierStars={user?.tier_stars}
+          accountBalance={user?.account_balance}
+          bankAccount={user?.bank_account}
+        />
       </section>
       <section>
-        <GeneralDetails />
+        <GeneralDetails
+          personal_information={user?.personal_information}
+          education_and_employment={user?.education_and_employment}
+          socials={user?.socials}
+          guarantors={user?.guarantors}
+        />
       </section>
     </div>
   );

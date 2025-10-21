@@ -11,7 +11,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className={styles.sidebar}>
         <SideBar />
         </div>
-        <div className={styles.main}>
+        <div className={styles.main} id="dashboard-main">
 
       {children}
         </div>

@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../../variables.scss"as *;
 
 .container {
@@ -40,7 +41,7 @@
                 margin-top: 16px;
                 text-transform: uppercase;
 
-                @media (max-width: map-get($breakpoints, "xs")) {
+                @media (max-width: map.get($breakpoints, "xs")) {
                     font-size: 12px;
                     margin-top: 10px;
                 }
@@ -52,7 +53,7 @@
                 color: var(--title-color);
                 margin-top: 16px;
 
-                @media (max-width: map-get($breakpoints, "xs")) {
+                @media (max-width: map.get($breakpoints, "xs")) {
                     font-size: 18px;
                     margin-top: 10px;
                 }

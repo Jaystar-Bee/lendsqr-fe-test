@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../../../variables.scss"as *;
 
 
@@ -7,20 +8,21 @@
     row-gap: 40px;
     column-gap: 30px;
 
-    @media (max-width: map-get($breakpoints, "xl")) {
+    @media (max-width: map.get($breakpoints, "xl")) {
         grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     }
 
-    @media (max-width: map-get($breakpoints, "md")) {
+    @media (max-width: map.get($breakpoints, "md")) {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         row-gap: 20px;
         column-gap: 15px;
     }
 
-    @media (max-width: map-get($breakpoints, "sm")) {
+    @media (max-width: map.get($breakpoints, "sm")) {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
-    @media (max-width: map-get($breakpoints, "xxs")) {
+
+    @media (max-width: map.get($breakpoints, "xxs")) {
         column-gap: 10px;
     }
 }
@@ -37,7 +39,7 @@
     font-size: 12px;
     text-transform: uppercase;
 
-    @media (max-width: map-get($breakpoints, "sm")) {
+    @media (max-width: map.get($breakpoints, "sm")) {
         font-size: 9px;
     }
 }
@@ -45,12 +47,15 @@
 %value {
     font-weight: 500;
     font-size: 16px;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
 
-    @media (max-width: map-get($breakpoints, "md")) {
+    @media (max-width: map.get($breakpoints, "md")) {
         font-size: 14px;
     }
 
-    @media (max-width: map-get($breakpoints, "sm")) {
+    @media (max-width: map.get($breakpoints, "sm")) {
         font-size: 12px;
         font-weight: 600;
     }
@@ -63,11 +68,11 @@
     box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(33, 63, 125, 0.06);
 
-    @media (max-width: map-get($breakpoints, "md")) {
+    @media (max-width: map.get($breakpoints, "md")) {
         padding: 16px;
     }
 
-    @media (max-width: map-get($breakpoints, "xs")) {
+    @media (max-width: map.get($breakpoints, "xs")) {
         padding: 12px;
     }
 
@@ -76,7 +81,7 @@
         border-top: 1px solid rgba(33, 63, 125, 0.06);
         padding-top: 30px;
 
-        @media (max-width: map-get($breakpoints, "md")) {
+        @media (max-width: map.get($breakpoints, "md")) {
             margin-top: 20px;
             padding-top: 20px;
         }
@@ -93,7 +98,7 @@
             color: var(--title-color);
             text-transform: capitalize;
 
-            @media (max-width: map-get($breakpoints, "xs")) {
+            @media (max-width: map.get($breakpoints, "xs")) {
                 font-size: 14px;
             }
         }
@@ -105,7 +110,7 @@
             list-style: none;
             margin-top: 30px;
 
-            @media (max-width: map-get($breakpoints, "md")) {
+            @media (max-width: map.get($breakpoints, "md")) {
                 margin-top: 15px;
             }
 
@@ -130,7 +135,7 @@
             padding-bottom: 30px;
             border-bottom: 1px solid rgba(33, 63, 125, 0.06);
 
-            @media (max-width: map-get($breakpoints, "md")) {
+            @media (max-width: map.get($breakpoints, "md")) {
                 margin-bottom: 20px;
                 padding-bottom: 20px;
             }
@@ -144,7 +149,7 @@
             &:first-of-type {
                 margin-top: 30px;
 
-                @media (max-width: map-get($breakpoints, "md")) {
+                @media (max-width: map.get($breakpoints, "md")) {
                     margin-top: 15px;
                 }
             }

@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../../variables.scss" as *;
 %input {
     border-color: var(--dark-border-color);
@@ -12,7 +13,7 @@
 
     &-cover {
        
-        @media (max-width: map-get($breakpoints, "xs")) {
+        @media (max-width: map.get($breakpoints, "xs")) {
             max-height: 65dvh;
             overflow-y:  auto;
         }

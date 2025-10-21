@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../../app/variables.scss"as *;
 
 %avatar {
@@ -16,7 +17,7 @@
     height: 48px;
     border-radius: 100%;
 
-    @media (max-width: map-get($breakpoints, "xs")) {
+    @media (max-width: map.get($breakpoints, "xs")) {
         width: 40px;
         height: 40px;
     }
@@ -89,23 +90,23 @@
     padding: 0 40px;
     box-shadow: -3px 0px 20px rgba(0, 0, 0, 0.04);
 
-    @media (max-width: map-get($breakpoints, "lg")) {
+    @media (max-width: map.get($breakpoints, "lg")) {
         justify-content: space-between;
         height: 75px;
     }
 
-    @media (max-width: map-get($breakpoints, "xs")) {
+    @media (max-width: map.get($breakpoints, "xs")) {
         padding: 0 20px;
     }
 
     &.desktop {
-        @media (max-width: map-get($breakpoints, "lg")) {
+        @media (max-width: map.get($breakpoints, "lg")) {
             display: none;
         }
     }
 
     &.mobile {
-        @media (min-width: map-get($breakpoints, "lg")) {
+        @media (min-width: map.get($breakpoints, "lg")) {
             display: none;
         }
 
@@ -118,7 +119,7 @@
         display: flex;
         align-items: center;
 
-        @media (max-width: map-get($breakpoints, "lg")) {
+        @media (max-width: map.get($breakpoints, "lg")) {
             width: auto;
         }
     }
@@ -134,17 +135,17 @@
             width: 60%;
             max-width: 400px;
 
-            @media (max-width: map-get($breakpoints, "xl")) {
+            @media (max-width: map.get($breakpoints, "xl")) {
                 max-width: 300px;
             }
 
-            @media (max-width: map-get($breakpoints, "lg")) {
+            @media (max-width: map.get($breakpoints, "lg")) {
                 width: 100%;
             }
 
         }
 
-        @media (max-width: map-get($breakpoints, "lg")) {
+        @media (max-width: map.get($breakpoints, "lg")) {
             display: none;
         }
     }
@@ -174,7 +175,7 @@
             }
         }
 
-        @media (max-width: map-get($breakpoints, "lg")) {
+        @media (max-width: map.get($breakpoints, "lg")) {
             display: none;
         }
     }
