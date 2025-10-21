@@ -9,6 +9,12 @@
     @media (max-width: map-get($breakpoints, "md")) {
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    @media (max-width: map-get($breakpoints, "sm")) {
+       margin-top: 70px;
     }
 
     .header {
@@ -25,16 +31,21 @@
 
         small {
             color: var(--subtitle-color);
-            font-size: 20px;
+            font-size: 30px;
 
             @media (max-width: map-get($breakpoints, "sm")) {
                 font-size: 16px;
             }
         }
+       
     }
 
     .form {
         margin-top: 50px;
+
+        @media (max-width: map-get($breakpoints, "xs")) {
+            margin-top: 30px;
+        }
 
         .forgot {
             margin-top: 16px;
@@ -53,7 +64,7 @@
             font-weight: 600;
             font-size: 12px;
             padding: 0;
-            margin-right: 10px;
+            padding-right: 10px;
         }
 
         .button {

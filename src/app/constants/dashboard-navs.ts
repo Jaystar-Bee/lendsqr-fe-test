@@ -3,7 +3,7 @@ export const sidebarList = [
     links: [
       {
         name: "Dashboard",
-        link: "/dashboard",
+        link: "#",
         icon: "/icons/sidebar/dashboard.svg",
       },
     ],
@@ -18,37 +18,37 @@ export const sidebarList = [
       },
       {
         name: "Guarantors",
-        link: "/dashboard/guarantors",
+        link: "#",
         icon: "/icons/sidebar/guarantors.svg",
       },
       {
         name: "Loans",
-        link: "/dashboard/loans",
+        link: "#",
         icon: "/icons/sidebar/loan.svg",
       },
       {
         name: "Decision Models",
-        link: "/dashboard/decision-models",
+        link: "#",
         icon: "/icons/sidebar/models.svg",
       },
       {
         name: "Savings",
-        link: "/dashboard/savings",
+        link: "#",
         icon: "/icons/sidebar/savings.svg",
       },
       {
         name: "Loan Requests",
-        link: "/dashboard/loan-requests",
+        link: "#",
         icon: "/icons/sidebar/loan-requests.svg",
       },
       {
         name: "Whitelist",
-        link: "/dashboard/whitelist",
+        link: "#",
         icon: "/icons/sidebar/whitelist.svg",
       },
       {
         name: "Karma",
-        link: "/dashboard/karma",
+        link: "#",
         icon: "/icons/sidebar/karma.svg",
       },
     ],
@@ -58,47 +58,47 @@ export const sidebarList = [
     links: [
       {
         name: "Organization",
-        link: "/dashboard/organization",
+        link: "#",
         icon: "/icons/sidebar/organization.svg",
       },
       {
         name: "Loan Products",
-        link: "/dashboard/loan-products",
+        link: "#",
         icon: "/icons/sidebar/loan-requests.svg",
       },
       {
         name: "Savings Products",
-        link: "/dashboard/savings-products",
+        link: "#",
         icon: "/icons/sidebar/savings-products.svg",
       },
       {
         name: "Fees and Charges",
-        link: "/dashboard/fees-and-charges",
+        link: "#",
         icon: "/icons/sidebar/fees-and-charges.svg",
       },
       {
         name: "Transactions",
-        link: "/dashboard/transactions",
+        link: "#",
         icon: "/icons/sidebar/transactions.svg",
       },
       {
         name: "Services",
-        link: "/dashboard/services",
+        link: "#",
         icon: "/icons/sidebar/services.svg",
       },
       {
         name: "Service Account",
-        link: "/dashboard/service-account",
+        link: "#",
         icon: "/icons/sidebar/service-account.svg",
       },
       {
         name: "Settlements",
-        link: "/dashboard/settlements",
+        link: "#",
         icon: "/icons/sidebar/settlements.svg",
       },
       {
         name: "Reports",
-        link: "/dashboard/reports",
+        link: "#",
         icon: "/icons/sidebar/reports.svg",
       },
     ],
@@ -108,22 +108,22 @@ export const sidebarList = [
     links: [
       {
         name: "Preferences",
-        link: "/dashboard/preferences",
+        link: "#",
         icon: "/icons/sidebar/preferences.svg",
       },
       {
         name: "Fees and Pricing",
-        link: "/dashboard/fees-and-pricing",
+        link: "#",
         icon: "/icons/sidebar/fees-and-pricing.svg",
       },
       {
         name: "Audit Logs",
-        link: "/dashboard/audit-logs",
+        link: "#",
         icon: "/icons/sidebar/audit-logs.svg",
       },
       {
         name: "Systems Messages",
-        link: "/dashboard/systems-messages",
+        link: "#",
         icon: "/icons/sidebar/systems-messages.svg",
       },
     ],

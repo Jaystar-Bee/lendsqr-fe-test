@@ -25,6 +25,9 @@
         overflow-y: auto;
         padding: 50px;
 
+        @media (max-width: map-get($breakpoints, "sm")) {
+            padding: 35px;
+        }
         @media (max-width: map-get($breakpoints, "xs")) {
             padding: 20px;
         }

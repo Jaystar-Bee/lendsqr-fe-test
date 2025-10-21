@@ -6,6 +6,7 @@ import Iconify from "@/components/element/icons/iconify";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { sidebarList } from "@/app/constants/dashboard-navs";
+import { Menu } from "@mantine/core";
 
 interface PropsType {
   onRouteClick?: (route: string) => void;
@@ -30,7 +31,7 @@ const SideBar = ({ onRouteClick }: PropsType) => {
       } else {
         setSectionIsAllVisible(false);
       }
-      if(isTop) {
+      if (isTop) {
         setSectionIsAtTop(true);
       } else {
         setSectionIsAtTop(false);
@@ -43,17 +44,30 @@ const SideBar = ({ onRouteClick }: PropsType) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.organization}>
-        <Image
-          src="/icons/sidebar/switch.svg"
-          alt="switch organization"
-          width={16}
-          height={16}
-        />
-        <p>Switch Organization</p>
-        <Iconify icon="ep:arrow-down-bold" />
-      </div>
-      <ul ref={sectionRef} className={`${styles.section} ${!sectionIsAtTop ? styles.shadow : ""}`}>
+      <Menu shadow="md" width={200}>
+        <Menu.Target>
+          <div className={styles.organization}>
+            <Image
+              src="/icons/sidebar/switch.svg"
+              alt="switch organization"
+              width={16}
+              height={16}
+            />
+            <p>Switch Organization</p>
+            <Iconify icon="ep:arrow-down-bold" />
+          </div>
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Item leftSection={<Iconify icon="mingcute:check-fill" />}>
+            Loaner
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+      <ul
+        ref={sectionRef}
+        className={`${styles.section} ${!sectionIsAtTop ? styles.shadow : ""}`}
+      >
         {sidebarList.map((item, index) => (
           <li key={index} className={styles["section-item"]}>
             {item.title && (
@@ -70,7 +84,9 @@ const SideBar = ({ onRouteClick }: PropsType) => {
                         pathname === link.link) &&
                       styles["active"]
                     }`}
-                    onClick={() => onRouteClick ? onRouteClick(link.link) : null}
+                    onClick={() =>
+                      onRouteClick ? onRouteClick(link.link) : null
+                    }
                   >
                     {link?.icon?.includes("svg") ? (
                       <Image

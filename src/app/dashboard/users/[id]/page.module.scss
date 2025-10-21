@@ -1,0 +1,13 @@
+@use "../../../variables.scss"as *;
+
+.container {
+    font-family: var(--work-sans-font);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @media (max-width: map-get($breakpoints, "sm")) {
+        gap: 30px;
+    }
+
+}

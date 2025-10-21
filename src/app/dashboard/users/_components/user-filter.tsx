@@ -4,7 +4,6 @@ import { Button, Select, TextInput } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import styles from "./user-filter.module.scss";
-import { useState } from "react";
 
 const UserFilter = () => {
   const form = useForm({

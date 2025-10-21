@@ -6,7 +6,7 @@ import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
 import { useState } from "react";
-import { useClickOutside } from "@mantine/hooks";
+import { useRouter } from "next/navigation";
 import UserFilter from "./user-filter";
 
 const elements = [
@@ -64,6 +64,7 @@ const UserTable = () => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [selectedActionElement, setSelectedActionElement] =
     useState<SelectedElementProps | null>(null);
+  const router = useRouter();
 
   function handleConfirm() {
     setOpenConfirmModal(false);
@@ -72,12 +73,7 @@ const UserTable = () => {
   const Filter = () => {
     const [opened, setOpened] = useState(false);
     return (
-      <Popover
-        width={270}
-        position="bottom"
-        withArrow
-        shadow="md"
-      >
+      <Popover width={270} position="bottom" withArrow shadow="md">
         <Popover.Target>
           <div onClick={() => setOpened(!opened)}>
             <Iconify icon="bx:filter" />
@@ -102,8 +98,7 @@ const UserTable = () => {
           />
         ),
         onClick: () => {
-          console.log("View User");
-          console.log(element);
+          router.push(`/dashboard/users/${element?.id}`);
         },
       },
       element?.status !== USER_STATUS_E.BLACKLISTED && {

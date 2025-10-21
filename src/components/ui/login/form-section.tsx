@@ -4,7 +4,7 @@ import styles from "./form-section.module.scss";
 
 import { useForm } from "@mantine/form";
 import { loginSchema } from "@/app/schemas/auth.schema";
-import { Button, TextInput } from "@mantine/core";
+import { Button, TextInput, PasswordInput } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
