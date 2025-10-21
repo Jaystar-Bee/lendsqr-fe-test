@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../app/variables.scss" as *;
 
 .container {
@@ -6,7 +7,7 @@
     gap: 25px;
     padding: 0 14px;
 
-    @media (max-width: map-get($breakpoints, "xs")) {
+    @media (max-width: map.get($breakpoints, "xs")) {
         gap: 20px;
     }
 
@@ -17,7 +18,7 @@
         margin: 0 auto;
         color: var(--primary-color);
 
-        @media (max-width: map-get($breakpoints, "xs")) {
+        @media (max-width: map.get($breakpoints, "xs")) {
             font-size: 60px;
         }
 
@@ -34,7 +35,7 @@
             font-size: 24px;
             color: var(--title-color);
 
-            @media (max-width: map-get($breakpoints, "xs")) {
+            @media (max-width: map.get($breakpoints, "xs")) {
                 font-size: 20px;
             }
         }
@@ -44,11 +45,11 @@
             padding-top: 3px;
             color: var(--subtitle-color);
 
-            @media (max-width: map-get($breakpoints, "md")) {
+            @media (max-width: map.get($breakpoints, "md")) {
                 font-size: 14px;
             }
 
-            @media (max-width: map-get($breakpoints, "xs")) {
+            @media (max-width: map.get($breakpoints, "xs")) {
                 font-size: 13px;
             }
         }

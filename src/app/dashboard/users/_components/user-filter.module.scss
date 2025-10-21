@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "../../../variables.scss" as *;
 %input {
     border-color: var(--dark-border-color);
     border-radius: 8px;
@@ -8,6 +10,15 @@
 
 .form {
     font-family: var(--work-sans-font);
+
+    &-cover {
+       
+        @media (max-width: map.get($breakpoints, "xs")) {
+            max-height: 65dvh;
+            overflow-y:  auto;
+        }
+    }
+
     &-control {
 
         &--label {

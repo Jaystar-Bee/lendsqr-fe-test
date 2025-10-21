@@ -1,57 +1,20 @@
 "use client";
 import Iconify from "@/components/element/icons/iconify";
-import { USER_STATUS_E } from "@/types/extra-enums";
 import { Table, Menu, Popover } from "@mantine/core";
 import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
-import { useState } from "react";
-import { useClickOutside } from "@mantine/hooks";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import UserFilter from "./user-filter";
-
-const elements = [
-  {
-    id: "1",
-    organization: "Lendsqr",
-    username: "Adedeji",
-    email: "adedeji@lendsqr.com",
-    phoneNumber: "08078903721",
-    dateJoined: "01/01/2023",
-    status: USER_STATUS_E.ACTIVE,
-  },
-  {
-    id: "2",
-    organization: "Irorun",
-    username: "Debby Ogana",
-    email: "debby2@irorun.com",
-    phoneNumber: "07060780922",
-    dateJoined: "04/01/2024",
-    status: USER_STATUS_E.INACTIVE,
-  },
-  {
-    id: "3",
-    organization: "Lendstar",
-    username: "Grace Effiom",
-    email: "grace@lendstar.com",
-    phoneNumber: "07003309226",
-    dateJoined: "04/04/2024",
-    status: USER_STATUS_E.PENDING,
-  },
-  {
-    id: "4",
-    organization: "Lendsqr",
-    username: "Grace Effiom",
-    email: "adedeji@lendsqr.com",
-    phoneNumber: "08078903721",
-    dateJoined: "01/01/2023",
-    status: USER_STATUS_E.BLACKLISTED,
-  },
-];
+import { USER_STATUS_E } from "@/types/extra-enums";
+import { USER_DATA_T } from "@/types/user-types";
+import { useSearchParams } from "next/navigation";
 
 interface SelectedElementProps {
   id: string;
   organisation: string;
-  type: string;
+  type: USER_STATUS_E;
   modal: {
     title: string;
     description: string;
@@ -60,24 +23,39 @@ interface SelectedElementProps {
     confirm: () => void;
   };
 }
-const UserTable = () => {
+const UserTable = ({
+  users,
+  onUpdateStatus,
+}: {
+  users: USER_DATA_T[];
+  onUpdateStatus: (id: string, user: Partial<USER_DATA_T>) => void;
+}) => {
+  const searchParams = useSearchParams();
+
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [selectedActionElement, setSelectedActionElement] =
     useState<SelectedElementProps | null>(null);
+  const router = useRouter();
 
   function handleConfirm() {
+    if (onUpdateStatus) {
+      setIsUpdatingStatus(true);
+      onUpdateStatus(selectedActionElement?.id || "", {
+        status: selectedActionElement?.type,
+      });
+    }
+
+    setTimeout(() => {
+      setIsUpdatingStatus(false);
+    }, 1000);
     setOpenConfirmModal(false);
   }
 
   const Filter = () => {
     const [opened, setOpened] = useState(false);
     return (
-      <Popover
-        width={270}
-        position="bottom"
-        withArrow
-        shadow="md"
-      >
+      <Popover width={270} position="bottom" withArrow shadow="md">
         <Popover.Target>
           <div onClick={() => setOpened(!opened)}>
             <Iconify icon="bx:filter" />
@@ -90,7 +68,7 @@ const UserTable = () => {
     );
   };
 
-  const moreActions = (element: (typeof elements)[0]) => {
+  const moreActions = (element: USER_DATA_T) => {
     return [
       {
         label: "View Details",
@@ -102,8 +80,7 @@ const UserTable = () => {
           />
         ),
         onClick: () => {
-          console.log("View User");
-          console.log(element);
+          router.push(`/dashboard/users/${element?.id}`);
         },
       },
       element?.status !== USER_STATUS_E.BLACKLISTED && {
@@ -117,9 +94,9 @@ const UserTable = () => {
         ),
         onClick: () => {
           setSelectedActionElement({
-            id: "1",
-            organisation: "Lendsqr",
-            type: "blacklist",
+            id: element?.id,
+            organisation: element?.organization,
+            type: USER_STATUS_E.BLACKLISTED,
             modal: {
               title: "Are you sure?",
               description: "Are you sure you want to blacklist this user?",
@@ -141,11 +118,10 @@ const UserTable = () => {
           />
         ),
         onClick: () => {
-          console.log("Activate User");
           setSelectedActionElement({
-            id: "1",
-            organisation: "Lendsqr",
-            type: "activate",
+            id: element?.id,
+            organisation: element?.organization,
+            type: USER_STATUS_E.ACTIVE,
             modal: {
               title: "Are you sure?",
               description: "Are you sure you want to activate this user?",
@@ -159,41 +135,61 @@ const UserTable = () => {
     ];
   };
 
-  const rows = elements.map((element) => (
-    <Table.Tr key={element?.id}>
-      <Table.Td className={styles["body-td"]}>{element?.organization}</Table.Td>
-      <Table.Td className={styles["body-td"]}>{element?.username}</Table.Td>
-      <Table.Td className={styles["body-td"]}>{element?.email}</Table.Td>
-      <Table.Td className={styles["body-td"]}>{element?.phoneNumber}</Table.Td>
+  const tableRef = useRef<HTMLTableElement>(null);
+  useEffect(() => {
+    if (!isUpdatingStatus) {
+      if (tableRef.current) {
+        tableRef.current.scroll({ top: 0, behavior: "smooth" });
+      }
+
+      const main = document.getElementById("dashboard-main");
+      if (main && main.scrollTop > 400) {
+        main.scroll({ top: 300, behavior: "smooth" });
+      }
+    }
+  }, [searchParams, users]);
+
+  const rows = users.map((user) => (
+    <Table.Tr key={user?.id} onClick={() => router.push(`/dashboard/users/${user?.id}`)}>
+      <Table.Td className={styles["body-td"]}>{user?.organization}</Table.Td>
       <Table.Td className={styles["body-td"]}>
-        {moment(element?.dateJoined).format("MMM DD, YYYY hh:mm A")}
+        {user?.personal_information?.full_name}
+      </Table.Td>
+      <Table.Td className={styles["body-td"]}>
+        {user?.personal_information?.email}
+      </Table.Td>
+      <Table.Td className={styles["body-td"]}>
+        {user?.personal_information?.phone_number}
+      </Table.Td>
+      <Table.Td className={styles["body-td"]}>
+        {moment(user?.created_at).format("MMM DD, YYYY hh:mm A")}
       </Table.Td>
       <Table.Td className={styles["body-td"]}>
         <div
           className={styles.status}
           style={{
             backgroundColor:
-              element?.status === USER_STATUS_E.ACTIVE
+              user?.status === USER_STATUS_E.ACTIVE
                 ? "rgba(57, 205, 98, 0.06)"
-                : element?.status === USER_STATUS_E.BLACKLISTED
+                : user?.status === USER_STATUS_E.BLACKLISTED
                 ? "rgba(228, 3, 59, 0.1)"
-                : element?.status === USER_STATUS_E.INACTIVE
+                : user?.status === USER_STATUS_E.INACTIVE
                 ? "rgba(84, 95, 125, 0.06)"
                 : "rgba(233, 178, 0, 0.1)",
             color:
-              element?.status === USER_STATUS_E.ACTIVE
+              user?.status === USER_STATUS_E.ACTIVE
                 ? "rgb(57, 205, 98)"
-                : element?.status === USER_STATUS_E.BLACKLISTED
+                : user?.status === USER_STATUS_E.BLACKLISTED
                 ? "rgb(228, 3, 59)"
-                : element?.status === USER_STATUS_E.INACTIVE
+                : user?.status === USER_STATUS_E.INACTIVE
                 ? "rgb(84, 95, 125)"
                 : "rgb(233, 178, 0)",
           }}
         >
-          {element?.status}
+          {user?.status}
         </div>
       </Table.Td>
-      <Table.Td className={styles["body-td"]}>
+      <Table.Td className={styles["body-td"]} onClick={(e) => e.stopPropagation()}>
         <Menu
           shadow="md"
           position="bottom-end"
@@ -209,7 +205,7 @@ const UserTable = () => {
             </div>
           </Menu.Target>
           <Menu.Dropdown>
-            {moreActions(element)
+            {moreActions(user)
               ?.filter((item) => typeof item === "object")
               ?.map((action) => (
                 <Menu.Item
@@ -227,8 +223,8 @@ const UserTable = () => {
   ));
 
   return (
-    <div className={styles.table}>
-      <Table verticalSpacing="lg">
+    <div ref={tableRef} className={styles.table}>
+      <Table verticalSpacing="lg" stickyHeader stickyHeaderOffset={0}>
         <Table.Thead>
           <Table.Tr
             className={styles.head}
@@ -260,6 +256,7 @@ const UserTable = () => {
               <span>Status</span>
               <Filter />
             </Table.Th>
+            <Table.Th className={styles["head-th"]}></Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
