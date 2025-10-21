@@ -11,4 +11,14 @@
         gap: 30px;
     }
 
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100dvh - 200px);
+
+        @media (max-width: map.get($breakpoints, "sm")) {
+            height: calc(100dvh - 140px);
+        }
+    }
 }

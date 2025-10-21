@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useIndexedDBUsers } from "@/hooks/useUserDB";
 import { notifications } from "@mantine/notifications";
 import { USER_STATUS_E } from "@/types/extra-enums";
+import { Box, Loader, LoadingOverlay, Stack } from "@mantine/core";
 
 interface PropsTypes {
   params: { id: string };
@@ -74,30 +75,43 @@ const UserDetailPage = ({ params }: PropsTypes) => {
 
   return (
     <div className={styles.container}>
-      <section>
-        <ActionSection
-          status={user?.status}
-          onBlacklist={() => handleBlacklist()}
-          onActivate={() => handleActivate()}
-        />
-      </section>
-      <section>
-        <OverviewSection
-          userName={user?.personal_information?.full_name}
-          userCode={user?.user_code}
-          tierStars={user?.tier_stars}
-          accountBalance={user?.account_balance}
-          bankAccount={user?.bank_account}
-        />
-      </section>
-      <section>
-        <GeneralDetails
-          personal_information={user?.personal_information}
-          education_and_employment={user?.education_and_employment}
-          socials={user?.socials}
-          guarantors={user?.guarantors}
-        />
-      </section>
+      {!isLoading ? (
+        <Box pos="relative" className={styles.loader}>
+          <LoadingOverlay
+            visible={true}
+            zIndex={1}
+            overlayProps={{ blur: 60 }}
+            loaderProps={{ type: "bars" }}
+          />
+        </Box>
+      ) : (
+        <>
+          <section>
+            <ActionSection
+              status={user?.status}
+              onBlacklist={() => handleBlacklist()}
+              onActivate={() => handleActivate()}
+            />
+          </section>
+          <section>
+            <OverviewSection
+              userName={user?.personal_information?.full_name}
+              userCode={user?.user_code}
+              tierStars={user?.tier_stars}
+              accountBalance={user?.account_balance}
+              bankAccount={user?.bank_account}
+            />
+          </section>
+          <section>
+            <GeneralDetails
+              personal_information={user?.personal_information}
+              education_and_employment={user?.education_and_employment}
+              socials={user?.socials}
+              guarantors={user?.guarantors}
+            />
+          </section>
+        </>
+      )}
     </div>
   );
 };
