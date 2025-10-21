@@ -150,7 +150,7 @@ const UserTable = ({
   }, [searchParams, users]);
 
   const rows = users.map((user) => (
-    <Table.Tr key={user?.id}>
+    <Table.Tr key={user?.id} onClick={() => router.push(`/dashboard/users/${user?.id}`)}>
       <Table.Td className={styles["body-td"]}>{user?.organization}</Table.Td>
       <Table.Td className={styles["body-td"]}>
         {user?.personal_information?.full_name}
@@ -189,7 +189,7 @@ const UserTable = ({
           {user?.status}
         </div>
       </Table.Td>
-      <Table.Td className={styles["body-td"]}>
+      <Table.Td className={styles["body-td"]} onClick={(e) => e.stopPropagation()}>
         <Menu
           shadow="md"
           position="bottom-end"

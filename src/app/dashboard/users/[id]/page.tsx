@@ -75,7 +75,7 @@ const UserDetailPage = ({ params }: PropsTypes) => {
 
   return (
     <div className={styles.container}>
-      {!isLoading ? (
+      {isLoading ? (
         <Box pos="relative" className={styles.loader}>
           <LoadingOverlay
             visible={true}
