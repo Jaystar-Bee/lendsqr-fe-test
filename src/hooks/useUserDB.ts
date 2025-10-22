@@ -89,6 +89,5 @@ export function useIndexedDBUsers() {
     getAllUsers,
     getUserById,
     patchUser,
-    clearAllUsers,
   };
 }
