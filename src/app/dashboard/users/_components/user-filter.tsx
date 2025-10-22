@@ -5,20 +5,21 @@ import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import styles from "./user-filter.module.scss";
 import { USER_FILTER_T } from "@/types/user-types";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { USER_STATUS_E } from "@/types/extra-enums";
 
 const organization = ["Lendsqr", "234Lender", "Palmpay"];
-const statuses = Object.values(USER_STATUS_E)?.map((item)=> {
+const statuses = Object.values(USER_STATUS_E)?.map((item) => {
   return {
     label: item,
-    value: item
-  }
+    value: item,
+  };
 });
 
 const UserFilter = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const form = useForm({
     initialValues: {
@@ -46,7 +47,6 @@ const UserFilter = () => {
       )
       .map(([k, v]) => [k, String(v)]) as [string, string][];
 
-    console.log(filteredEntries);
     if (filteredEntries.length === 0) {
       router.push("?");
     } else {
@@ -60,8 +60,6 @@ const UserFilter = () => {
   }
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
     form.setValues({
       organization: searchParams.get("organization") || "",
       username: searchParams.get("username") || "",
@@ -71,7 +69,7 @@ const UserFilter = () => {
       status:
         (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
     });
-  }, [form]);
+  }, [searchParams]);
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)} className={styles.form}>
