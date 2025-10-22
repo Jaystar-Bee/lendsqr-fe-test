@@ -238,7 +238,7 @@ const UserTable = ({
 
   return (
     <div ref={tableRef} className={styles.table}>
-      <Table verticalSpacing="lg" stickyHeader stickyHeaderOffset={0}>
+      <Table verticalSpacing="lg" stickyHeader highlightOnHover stickyHeaderOffset={0}>
         <Table.Thead>
           <Table.Tr
             className={styles.head}
