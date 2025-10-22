@@ -12,11 +12,11 @@ export default function Home() {
             <Image src="/icons/logo.svg" alt="logo" width={173} height={36} />
           </div>
         </div>
-        <div className={styles.imageSection + " screen-height"}>
+        <div data-testid="image-section" className={styles.imageSection + " screen-height"}>
           <ImageSection />
         </div>
 
-        <div className={styles.form + " screen-height"}>
+        <div data-testid="form-section" className={styles.form + " screen-height"}>
           <FormSection />
         </div>
       </div>

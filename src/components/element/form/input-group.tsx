@@ -22,7 +22,7 @@ const InputGroup = ({
 }: PropsType) => {
   const [search, setSearch] = useState("");
   return (
-    <div className={styles.container}>
+    <div data-testid="input-group" className={styles.container}>
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
