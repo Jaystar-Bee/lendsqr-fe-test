@@ -77,7 +77,7 @@ src/
 │   │   └── users/
 │   │       ├── [id]/          # User detail page
 │   │       └── page.tsx       # Users listing page
-│   └── login/                 # Authentication
+│   ├──page.tsx                # Authentication
 ├── components/
 │   ├── element/               # Reusable UI elements
 │   └── ui/                    # Complex UI components
