@@ -53,6 +53,10 @@ const UserFilter = () => {
       router.push(`?${new URLSearchParams(filteredEntries).toString()}`);
     }
   }
+  function onsubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleSubmit(form.values);
+  }
 
   function handleReset() {
     form.reset();
@@ -72,7 +76,7 @@ const UserFilter = () => {
   }, [searchParams]);
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)} className={styles.form}>
+    <form onSubmit={onsubmit} className={styles.form}>
       <div className={styles["form-cover"]}>
         <Select
           label="Organization"
