@@ -4,3 +4,7 @@ export enum USER_STATUS_E {
     PENDING = "pending",
     BLACKLISTED = "blacklisted"
 }
+
+export enum GLOBAL_NAME_E {
+    AUTHTOKEN = "token"
+}

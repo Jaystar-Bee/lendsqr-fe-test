@@ -82,11 +82,6 @@ export function useIndexedDBUsers() {
     [db]
   );
 
-  const clearAllUsers = useCallback(async () => {
-    if (!db) return;
-    await db.clear("users");
-  }, [db]);
-
   return {
     ready: !!db,
     saveUser,
@@ -94,6 +89,5 @@ export function useIndexedDBUsers() {
     getAllUsers,
     getUserById,
     patchUser,
-    clearAllUsers,
   };
 }
