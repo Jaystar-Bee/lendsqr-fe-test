@@ -1,6 +1,12 @@
 @use "sass:map";
 @use "../../../app/variables.scss" as *;
 
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 .container {
     font-family: var(--work-sans-font);
 
