@@ -11,7 +11,6 @@ import { useIndexedDBUsers } from "@/hooks/useUserDB";
 import { USER_DATA_T, USER_FILTER_T } from "@/types/user-types";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
-import { is } from "zod/locales";
 
 const UserPageContent = () => {
   const searchParams = useSearchParams();
