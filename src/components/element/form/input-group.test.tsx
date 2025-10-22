@@ -48,12 +48,11 @@ describe("Custom input group", () => {
     const button = screen.getByRole("button");
     const user = userEvent.setup();
 
-    
+
     await user.type(input, "john");
     await user.click(button);
 
     expect(handleSubmit).toHaveBeenCalledWith("john");
-
     expect(handleSubmit).toHaveBeenCalledWith("john");
   });
 });

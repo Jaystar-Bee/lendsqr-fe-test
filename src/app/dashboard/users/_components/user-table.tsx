@@ -10,6 +10,7 @@ import UserFilter from "./user-filter";
 import { USER_STATUS_E } from "@/types/extra-enums";
 import { USER_DATA_T } from "@/types/user-types";
 import { useSearchParams } from "next/navigation";
+import TableEmptyState from "@/components/ui/table-empty-state";
 
 interface SelectedElementProps {
   id: string;
@@ -25,9 +26,11 @@ interface SelectedElementProps {
 }
 const UserTable = ({
   users,
+  isLoading,
   onUpdateStatus,
 }: {
   users: USER_DATA_T[];
+  isLoading?: boolean;
   onUpdateStatus: (id: string, user: Partial<USER_DATA_T>) => void;
 }) => {
   const searchParams = useSearchParams();
@@ -145,17 +148,20 @@ const UserTable = ({
       const main = document.getElementById("dashboard-main");
       if (main && main.scrollTop > 500) {
         // for mobile
-        if(window.innerWidth < 420) {
+        if (window.innerWidth < 420) {
           main.scroll({ top: 500, behavior: "smooth" });
-        }else { 
+        } else {
           main.scroll({ top: 300, behavior: "smooth" });
         }
       }
     }
   }, [searchParams, isUpdatingStatus, users]);
 
-  const rows = users.map((user) => (
-    <Table.Tr key={user?.id} onClick={() => router.push(`/dashboard/users/${user?.id}`)}>
+  const rows = users?.map((user) => (
+    <Table.Tr
+      key={user?.id}
+      onClick={() => router.push(`/dashboard/users/${user?.id}`)}
+    >
       <Table.Td className={styles["body-td"]}>{user?.organization}</Table.Td>
       <Table.Td className={styles["body-td"]}>
         {user?.personal_information?.full_name}
@@ -194,7 +200,10 @@ const UserTable = ({
           {user?.status}
         </div>
       </Table.Td>
-      <Table.Td className={styles["body-td"]} onClick={(e) => e.stopPropagation()}>
+      <Table.Td
+        className={styles["body-td"]}
+        onClick={(e) => e.stopPropagation()}
+      >
         <Menu
           shadow="md"
           position="bottom-end"
@@ -266,13 +275,14 @@ const UserTable = ({
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
+      {!isLoading && (!users || users?.length === 0) && <TableEmptyState />}
       <ConfirmModal
         opened={openConfirmModal}
         title={selectedActionElement?.modal?.title}
         description={selectedActionElement?.modal?.description}
         color={selectedActionElement?.modal?.color}
         close={() => setOpenConfirmModal(false)}
-        confirm={()=>handleConfirm()}
+        confirm={() => handleConfirm()}
       />
     </div>
   );

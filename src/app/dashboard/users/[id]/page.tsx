@@ -83,14 +83,14 @@ const UserDetailPage = () => {
         </Box>
       ) : (
         <>
-          <section>
+          <section data-testid="action-section">
             <ActionSection
               status={user?.status}
               onBlacklist={() => handleBlacklist()}
               onActivate={() => handleActivate()}
             />
           </section>
-          <section>
+          <section data-testid="overview-section">
             <OverviewSection
               userName={user?.personal_information?.full_name}
               userCode={user?.user_code}
@@ -99,7 +99,7 @@ const UserDetailPage = () => {
               bankAccount={user?.bank_account}
             />
           </section>
-          <section>
+          <section data-testid="general-details">
             <GeneralDetails
               personal_information={user?.personal_information}
               education_and_employment={user?.education_and_employment}
