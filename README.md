@@ -86,6 +86,8 @@ src/
 ├── hooks/
 │   └── useUserDB.ts           # IndexedDB hook
 ├── types/                     # TypeScript type definitions
+│
+├── middleware.ts              # Auth Guard  
 ```
 
 ## 🔑 Key Features Explained
