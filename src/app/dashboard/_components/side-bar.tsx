@@ -3,16 +3,20 @@ import Link from "next/link";
 import styles from "./side-bar.module.scss";
 import Image from "next/image";
 import Iconify from "@/components/element/icons/iconify";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { sidebarList } from "@/app/constants/dashboard-navs";
 import { Menu } from "@mantine/core";
+import ConfirmModal from "@/components/ui/confirm-modal";
+import Cookies from "js-cookie";
+import { GLOBAL_NAME_E } from "@/types/extra-enums";
 
 interface PropsType {
   onRouteClick?: (route: string) => void;
 }
 
 const SideBar = ({ onRouteClick }: PropsType) => {
+  const router = useRouter();
   const pathname = usePathname();
   const sectionRef = useRef<HTMLUListElement>(null);
   const [sectionIsAllVisible, setSectionIsAllVisible] = useState(false);
@@ -41,6 +45,13 @@ const SideBar = ({ onRouteClick }: PropsType) => {
     section.addEventListener("scroll", handleScroll);
     return () => section.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // LOGOUT
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  async function handleLogout() {
+    Cookies.remove(GLOBAL_NAME_E.AUTHTOKEN);
+    router.push("/");
+  }
 
   return (
     <div className={styles.container}>
@@ -111,7 +122,10 @@ const SideBar = ({ onRouteClick }: PropsType) => {
           !sectionIsAllVisible ? styles.shadow : ""
         }`}
       >
-        <div className={styles["footer-logout"]}>
+        <div
+          className={styles["footer-logout"]}
+          onClick={() => setShowLogoutModal(true)}
+        >
           <Image
             src="/icons/sidebar/logout.svg"
             alt="switch organization"
@@ -123,6 +137,16 @@ const SideBar = ({ onRouteClick }: PropsType) => {
 
         <p className={styles["footer-version"]}>v1.2.0</p>
       </div>
+      <ConfirmModal
+        opened={showLogoutModal}
+        title="Logout"
+        description="Are you sure you want to logout?"
+        color="red"
+        close={() => {
+          setShowLogoutModal(false);
+        }}
+        confirm={handleLogout}
+      />
     </div>
   );
 };

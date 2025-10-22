@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import styles from "./form-section.module.scss";
-
+import Cookies from "js-cookie";
 import { useForm } from "@mantine/form";
 import { loginSchema } from "@/app/schemas/auth.schema";
 import { Button, TextInput } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GLOBAL_NAME_E } from "@/types/extra-enums";
 
 const inputStyle = {
   input: {
@@ -41,8 +42,11 @@ const FormSection = () => {
     },
   });
 
-  function handleSubmit(values: typeof form.values) {
-    console.log(values);
+  async function handleSubmit(values: typeof form.values) {
+    Cookies.set(GLOBAL_NAME_E.AUTHTOKEN, JSON.stringify(values), {
+      expires: 7,
+      sameSite: "lax",
+    });
     router.push("/dashboard/users");
   }
 
@@ -67,7 +71,7 @@ const FormSection = () => {
           placeholder="Password"
           type={showPassword ? "text" : "password"}
           key={form.key("password")}
-          styles={{...inputStyle,}}
+          styles={{ ...inputStyle }}
           {...form.getInputProps("password")}
           rightSectionWidth={50}
           rightSection={
