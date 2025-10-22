@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { Notifications } from "@mantine/notifications";
+import NextTopLoader from "nextjs-toploader";
 
 dayjs.extend(customParseFormat);
 import {
@@ -84,6 +85,7 @@ export default function RootLayout({
         <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
+        <NextTopLoader color="#39cec8" height={4} showSpinner={false} />
         <MantineProvider forceColorScheme="light" theme={mantineTheme}>
           <Notifications />
           {children}
