@@ -146,9 +146,9 @@ const UserTable = ({
       }
 
       const main = document.getElementById("dashboard-main");
-      if (main && main.scrollTop > 500) {
+      if (main && main.scrollTop > 300) {
         // for mobile
-        if (window.innerWidth < 420) {
+        if (window.innerWidth < 420 && main.scrollTop > 500) {
           main.scroll({ top: 500, behavior: "smooth" });
         } else {
           main.scroll({ top: 300, behavior: "smooth" });
