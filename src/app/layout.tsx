@@ -18,6 +18,24 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 
+// FONTS
+import { Roboto } from "next/font/google";
+import { Work_Sans } from "next/font/google";
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--work-sans-font",
+  display: "swap",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  variable: "--roboto-font",
+  display: "swap",
+});
+
 const font = localFont({
   src: [
     {
@@ -49,7 +67,7 @@ const font = localFont({
       weight: "800",
     },
   ],
-  variable: "--font-avenir",
+  variable: "--avenir-font",
 });
 
 const tealCustom: MantineColorsTuple = [
@@ -66,7 +84,7 @@ const tealCustom: MantineColorsTuple = [
 ];
 
 const mantineTheme: MantineThemeOverride = {
-  fontFamily: "var(--font-avenir), sans-serif",
+  fontFamily: "var(--avenir-font), sans-serif",
   colors: {
     tealCustom,
   },
@@ -80,7 +98,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" {...mantineHtmlProps} className={font.variable}>
+    <html
+      lang="en"
+      {...mantineHtmlProps}
+      className={
+        font.variable + " " + workSans.variable + " " + roboto.variable
+      }
+    >
       <head>
         <ColorSchemeScript forceColorScheme="light" />
       </head>

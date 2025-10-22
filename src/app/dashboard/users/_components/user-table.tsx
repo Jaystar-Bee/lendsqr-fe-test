@@ -275,7 +275,7 @@ const UserTable = ({
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-      {!isLoading && (!users || users?.length === 0) && <TableEmptyState />}
+      {!isLoading && (!users || (users && !users?.length)) && <TableEmptyState />}
       <ConfirmModal
         opened={openConfirmModal}
         title={selectedActionElement?.modal?.title}

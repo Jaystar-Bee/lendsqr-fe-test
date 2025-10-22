@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "./variables.scss" as *;
+@use "./variables.scss"as *;
 
 %flex-equal {
     flex-grow: 1;
@@ -14,18 +14,20 @@
     position: relative;
     display: flex;
     height: 100%;
+    font-family: var(--avenir-font);
 
     .logo-cover {
         position: absolute;
         top: 10%;
         left: 20px;
         width: 50%;
+
         &--image {
             width: 90%;
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         @media (max-width: map.get($breakpoints, "xs")) {
             top: 5%;
             width: 100%;
