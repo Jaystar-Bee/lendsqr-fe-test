@@ -81,9 +81,13 @@ src/
 ├── components/
 │   ├── element/               # Reusable UI elements
 │   └── ui/                    # Complex UI components
+├── schemas/                   # Form validation schemas
+│
 ├── hooks/
 │   └── useUserDB.ts           # IndexedDB hook
 ├── types/                     # TypeScript type definitions
+│
+├── middleware.ts              # Auth Guard  
 ```
 
 ## 🔑 Key Features Explained
