@@ -1,37 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lendsqr User Management Dashboard
 
-## Getting Started
+A modern user management dashboard built with Next.js 15, featuring user listing, filtering, and detailed user profiles also using IndexedDB for offline-first capabilities (API is not used).
 
-First, run the development server:
+## 🚀 Features
+
+- **User Management** - View, filter, and manage users with pagination
+- **User Details** - Comprehensive user profile pages with personal, employment, and guarantor information
+- **Status Management** - Activate or blacklist users with confirmation modals
+- **Offline-First** - IndexedDB integration for persistent local data storage
+- **Responsive Design** - Mobile-friendly UI built with Mantine components
+- **Type-Safe** - Full TypeScript support with Zod validation
+- **Tested** - Comprehensive test coverage with Jest and React Testing Library
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15 (App Router with Turbopack)
+- **UI Library:** Mantine v8
+- **Styling:** SCSS Modules
+- **State Management:** React Hooks
+- **Database:** IndexedDB (via idb)
+- **Testing:** Jest + React Testing Library
+- **Type Safety:** TypeScript + Zod
+- **Icons:** Iconify
+
+## 📦 Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone <https://github.com/Jaystar-Bee/lendsqr-fe-test.git>
+
+# Navigate to project directory
+cd lendsqr-fe-test
+
+# Install dependencies
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏃 Running the Application
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Development Mode
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production Build
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+### Linting
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🧪 Testing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Run all tests
+npm test
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run tests in watch mode
+npm run test:watch
 
-## Deploy on Vercel
+# Run tests with coverage
+npm test -- --coverage
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# lendsqr-test
+```
+src/
+├── app/
+│   ├── dashboard/
+│   │   └── users/
+│   │       ├── [id]/          # User detail page
+│   │       └── page.tsx       # Users listing page
+│   └── login/                 # Authentication
+├── components/
+│   ├── element/               # Reusable UI elements
+│   └── ui/                    # Complex UI components
+├── hooks/
+│   └── useUserDB.ts           # IndexedDB hook
+├── types/                     # TypeScript type definitions
+```
+
+## 🔑 Key Features Explained
+
+### IndexedDB Integration
+User data is stored locally using IndexedDB for offline access and faster load times. The `useUserDB` hook provides methods to:
+- Fetch all users
+- Get user by ID
+- Update user status
+- Save users to local database
+
+### User Filtering
+Filter users by status (Active, Inactive, Pending, Blacklisted) using URL search parameters.
+Filter users by full name using URL search parameters.
+Filter users by email using URL search parameters.
+Filter users by phone number using URL search parameters.
+Filter user by Date Joined using URL search parameters.
+Filter user by Organization using URL search parameters.
+
+### Pagination
+Customizable items per page (10, 20, 50, 100) with smooth navigation.
+
+### Status Management
+Update user status with confirmation modals to prevent accidental changes.
+
+## 🧩 Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start development server with Turbopack |
+| `npm run build` | Build for production |
+| `npm start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm test` | Run Jest tests |
+| `npm run test:watch` | Run tests in watch mode |
+
+## 🌐 Environment Variables
+
+No environment variables required for basic functionality. The app fetches mock data from a public API.
+
+## 📝 Testing
+
+The project includes comprehensive tests for:
+- User listing page
+- User detail page
+- Component rendering
+- User interactions
+- Error handling
+- Loading states
+
+All tests use actual components (no mocks) for realistic testing.
