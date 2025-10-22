@@ -1,5 +1,5 @@
 "use client";
-import { Box, LoadingOverlay, Pagination } from "@mantine/core";
+import { Box, Loader, LoadingOverlay, Pagination } from "@mantine/core";
 import CardSection from "./_components/card-section";
 import UserTable from "./_components/user-table";
 import styles from "./page.module.scss";
@@ -191,7 +191,7 @@ const UserPageContent = () => {
 
 const UserPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className={styles.loader}><Loader /></div>}>
       <UserPageContent />
     </Suspense>
   );
