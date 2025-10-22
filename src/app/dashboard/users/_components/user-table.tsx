@@ -143,11 +143,16 @@ const UserTable = ({
       }
 
       const main = document.getElementById("dashboard-main");
-      if (main && main.scrollTop > 400) {
-        main.scroll({ top: 300, behavior: "smooth" });
+      if (main && main.scrollTop > 500) {
+        // for mobile
+        if(window.innerWidth < 420) {
+          main.scroll({ top: 500, behavior: "smooth" });
+        }else { 
+          main.scroll({ top: 300, behavior: "smooth" });
+        }
       }
     }
-  }, [searchParams, isUpdatingStatus]);
+  }, [searchParams, isUpdatingStatus, users]);
 
   const rows = users.map((user) => (
     <Table.Tr key={user?.id} onClick={() => router.push(`/dashboard/users/${user?.id}`)}>
@@ -267,7 +272,7 @@ const UserTable = ({
         description={selectedActionElement?.modal?.description}
         color={selectedActionElement?.modal?.color}
         close={() => setOpenConfirmModal(false)}
-        confirm={handleConfirm}
+        confirm={()=>handleConfirm()}
       />
     </div>
   );
