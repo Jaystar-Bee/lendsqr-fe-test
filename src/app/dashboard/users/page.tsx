@@ -179,7 +179,7 @@ const UserPageContent = () => {
           <span>out of {filteredUsers.length}</span>
         </div>
         <Pagination
-          defaultValue={activePage}
+          value={activePage}
           onChange={setPage}
           total={Math.ceil(filteredUsers.length / Number(itemsPerPage))}
           size={isSm ? "xs" : isLg ? "md" : "sm"}
