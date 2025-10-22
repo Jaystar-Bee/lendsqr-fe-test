@@ -4,6 +4,7 @@
 .container {
     display: flex;
     height: calc(100dvh - 100px);
+    font-family: var(--work-sans-font);
 
     @media (max-width: map.get($breakpoints, "lg")) {
         height: calc(100dvh - 75px);

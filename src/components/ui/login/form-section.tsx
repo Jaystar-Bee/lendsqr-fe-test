@@ -42,7 +42,9 @@ const FormSection = () => {
     },
   });
 
+  const [isLoading, setIsLoading] = React.useState(false);
   async function handleSubmit(values: typeof form.values) {
+    setIsLoading(true);
     Cookies.set(GLOBAL_NAME_E.AUTHTOKEN, JSON.stringify(values), {
       expires: 7,
       sameSite: "lax",
@@ -101,6 +103,7 @@ const FormSection = () => {
           size="md"
           className={styles.button}
           aria-label="Login"
+          loading={isLoading}
         >
           Login
         </Button>

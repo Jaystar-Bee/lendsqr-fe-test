@@ -11,6 +11,7 @@ import { useIndexedDBUsers } from "@/hooks/useUserDB";
 import { USER_DATA_T, USER_FILTER_T } from "@/types/user-types";
 import { useSearchParams } from "next/navigation";
 import moment from "moment";
+import { is } from "zod/locales";
 
 const UserPageContent = () => {
   const searchParams = useSearchParams();
@@ -46,6 +47,9 @@ const UserPageContent = () => {
   }
 
   useEffect(() => {
+    if (!isLoading) {
+      setIsLoading(true);
+    }
     const filters = {
       organization: searchParams.get("organization") || "",
       username: searchParams.get("username") || "",
@@ -55,7 +59,9 @@ const UserPageContent = () => {
       status:
         (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
     };
-    setIsLoading(true);
+    if (activePage > 1) {
+      setPage(1);
+    }
     if (
       filters.status ||
       filters.date ||
@@ -98,7 +104,6 @@ const UserPageContent = () => {
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         )
       );
-      setPage(1);
     } else {
       setFilteredUsers(
         users?.sort(
@@ -106,9 +111,10 @@ const UserPageContent = () => {
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         )
       );
-      setPage(1);
     }
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   }, [searchParams, users]);
 
   // Init
@@ -126,11 +132,11 @@ const UserPageContent = () => {
         } else {
           setUsers(users);
         }
-      } finally {
-        setIsLoading(false);
+      } catch (error) {
+        setUsers([]);
       }
     })();
-  }, [ready, getAllUsers, saveUsers, setIsLoading]);
+  }, [ready]);
 
   return (
     <div className={styles.container}>
