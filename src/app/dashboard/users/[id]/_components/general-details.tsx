@@ -62,7 +62,6 @@ const GeneralDetails = ({
   if (!details) {
     return null;
   }
-  console.log(details);
   return (
     <div className={styles.container}>
       {Object.entries(details).map(([section, value], index) => (

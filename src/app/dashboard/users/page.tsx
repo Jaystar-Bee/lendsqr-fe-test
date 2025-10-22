@@ -140,7 +140,7 @@ const UserPageContent = () => {
       </section>
 
       <section className={styles.table}>
-        <Box pos="relative">
+        <Box data-testid="loader" pos="relative">
           <LoadingOverlay
             visible={isLoading}
             zIndex={1000}
@@ -153,6 +153,7 @@ const UserPageContent = () => {
               (activePage - 1) * Number(itemsPerPage),
               activePage * Number(itemsPerPage)
             )}
+            isLoading={isLoading}
           />
         </Box>
       </section>
@@ -191,7 +192,18 @@ const UserPageContent = () => {
 
 const UserPage = () => {
   return (
-    <Suspense fallback={<div className={styles.loader}><Loader /></div>}>
+    <Suspense
+      fallback={
+        <Box data-testid="loader" pos="relative" className={styles.loader}>
+          <LoadingOverlay
+            visible={true}
+            zIndex={1}
+            overlayProps={{ blur: 60 }}
+            loaderProps={{ type: "bars" }}
+          />
+        </Box>
+      }
+    >
       <UserPageContent />
     </Suspense>
   );

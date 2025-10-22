@@ -1,0 +1,28 @@
+.container {
+    padding-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .icon {
+        font-size: 30px;
+        color: var(--secondary-color);
+    }
+
+    & h2 {
+        font-weight: 600;
+        font-size: 24px;
+        color: var(--secondary-color);
+    }
+
+    & p {
+        margin-top: 8px;
+        font-size: 14px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--subtitle-color);
+    }
+}
