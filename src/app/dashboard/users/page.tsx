@@ -141,7 +141,25 @@ const UserPageContent = () => {
     <div className={styles.container}>
       <h1>Users</h1>
       <section>
-        <CardSection />
+        <CardSection
+          activeUsers={users.filter((user) => user.status === "active").length}
+          allUsers={users?.length}
+          usersWithLoans={
+            users.filter(
+              (user) =>
+                user.account_balance &&
+                parseFloat(user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")) > 0
+            ).length
+          }
+          usersWithSavings={
+            users.filter(
+              (user) =>
+                user.account_balance &&
+                parseFloat(user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")) > 0
+            ).length
+          }
+          loading={isLoading}
+        />
       </section>
 
       <section className={styles.table}>
