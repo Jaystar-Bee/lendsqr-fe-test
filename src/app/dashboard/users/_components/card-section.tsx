@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./card-section.module.scss";
 import { useEffect, useState } from "react";
-import Iconify from "@/components/element/icons/iconify";
+import { Skeleton } from "@mantine/core";
 
 const cardList = [
   {
@@ -86,7 +86,7 @@ const CardSection = ({
                 <h3>{item.title}</h3>
                 {loading ? (
                   <div className={styles.loading}>
-                    <Iconify icon="eos-icons:bubble-loading" />
+                    <Skeleton width="50%" height={28} radius="sm" />
                   </div>
                 ) : (
                   <h1>{item.count?.toLocaleString()}</h1>
