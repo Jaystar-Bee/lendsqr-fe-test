@@ -1,6 +1,6 @@
 "use client";
 import Iconify from "@/components/element/icons/iconify";
-import { Table, Menu, Popover } from "@mantine/core";
+import { Table, Menu, Popover, Box, LoadingOverlay } from "@mantine/core";
 import ConfirmModal from "@/components/ui/confirm-modal";
 import moment from "moment";
 import styles from "./user-table.module.scss";
@@ -24,7 +24,7 @@ interface SelectedElementProps {
     confirm: () => void;
   };
 }
-interface PropsType  {
+interface PropsType {
   users: USER_DATA_T[];
   isLoading?: boolean;
   onUpdateStatus: (id: string, user: Partial<USER_DATA_T>) => void;
@@ -156,7 +156,7 @@ const UserTable = ({
         }
       }
     }
-  }, [searchParams, isUpdatingStatus, users]);
+  }, [searchParams, users]);
 
   const rows = users?.map((user) => (
     <Table.Tr
@@ -205,41 +205,46 @@ const UserTable = ({
         className={styles["body-td"]}
         onClick={(e) => e.stopPropagation()}
       >
-        <Menu
-          shadow="md"
-          position="bottom-end"
-          transitionProps={{ transition: "rotate-right", duration: 150 }}
-          width={180}
-        >
-          <Menu.Target>
-            <div>
-              <Iconify
-                icon="nrk:more"
-                style={{ fontSize: "24px", cursor: "pointer" }}
-              />
-            </div>
-          </Menu.Target>
-          <Menu.Dropdown>
-            {moreActions(user)
-              ?.filter((item) => typeof item === "object")
-              ?.map((action) => (
-                <Menu.Item
-                  key={action?.label}
-                  leftSection={action?.icon}
-                  onClick={action.onClick}
-                >
-                  <span className={styles.more}>{action?.label}</span>
-                </Menu.Item>
-              ))}
-          </Menu.Dropdown>
-        </Menu>
+          <Menu
+            shadow="md"
+            position="bottom-end"
+            transitionProps={{ transition: "rotate-right", duration: 150 }}
+            width={180}
+          >
+            <Menu.Target>
+              <div>
+                <Iconify
+                  icon="nrk:more"
+                  style={{ fontSize: "24px", cursor: "pointer" }}
+                />
+              </div>
+            </Menu.Target>
+            <Menu.Dropdown>
+              {moreActions(user)
+                ?.filter((item) => typeof item === "object")
+                ?.map((action) => (
+                  <Menu.Item
+                    key={action?.label}
+                    leftSection={action?.icon}
+                    onClick={action.onClick}
+                  >
+                    <span className={styles.more}>{action?.label}</span>
+                  </Menu.Item>
+                ))}
+            </Menu.Dropdown>
+          </Menu>
       </Table.Td>
     </Table.Tr>
   ));
 
   return (
     <div ref={tableRef} className={styles.table}>
-      <Table verticalSpacing="lg" stickyHeader highlightOnHover stickyHeaderOffset={0}>
+      <Table
+        verticalSpacing="lg"
+        stickyHeader
+        highlightOnHover
+        stickyHeaderOffset={0}
+      >
         <Table.Thead>
           <Table.Tr
             className={styles.head}
@@ -276,7 +281,9 @@ const UserTable = ({
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-      {!isLoading && (!users || (users && !users?.length)) && <TableEmptyState />}
+      {!isLoading && (!users || (users && !users?.length)) && (
+        <TableEmptyState />
+      )}
       <ConfirmModal
         opened={openConfirmModal}
         title={selectedActionElement?.modal?.title}
