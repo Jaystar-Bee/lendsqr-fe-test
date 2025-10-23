@@ -1,5 +1,5 @@
 "use client";
-import { Box, Loader, LoadingOverlay, Pagination } from "@mantine/core";
+import { Box, LoadingOverlay, Pagination } from "@mantine/core";
 import CardSection from "./_components/card-section";
 import UserTable from "./_components/user-table";
 import styles from "./page.module.scss";
@@ -25,7 +25,9 @@ const UserPageContent = () => {
   const [activePage, setPage] = useState(1);
 
   // METHODS
+  const [changingStatusId, setChangingStatusId] = useState<string | null>(null);
   function handleUpdateUserStatus(id: string, user: Partial<USER_DATA_T>) {
+    setChangingStatusId(id);
     setFilteredUsers((prev) => {
       return prev.map((item) => {
         if (item.id === id) {
@@ -43,6 +45,9 @@ const UserPageContent = () => {
       });
     });
     patchUser(id, user);
+    setTimeout(() => {
+    setChangingStatusId(null);
+    }, 500);
   }
 
   useEffect(() => {
@@ -58,9 +63,11 @@ const UserPageContent = () => {
       status:
         (searchParams.get("status") as USER_FILTER_T["status"]) || undefined,
     };
-    if (activePage > 1) {
+
+    if (activePage > 1 && !changingStatusId) {
       setPage(1);
     }
+
     if (
       filters.status ||
       filters.date ||
@@ -148,14 +155,18 @@ const UserPageContent = () => {
             users.filter(
               (user) =>
                 user.account_balance &&
-                parseFloat(user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")) > 0
+                parseFloat(
+                  user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")
+                ) > 0
             ).length
           }
           usersWithSavings={
             users.filter(
               (user) =>
                 user.account_balance &&
-                parseFloat(user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")) > 0
+                parseFloat(
+                  user.account_balance.replace(/,/g, "")?.replaceAll("₦", "")
+                ) > 0
             ).length
           }
           loading={isLoading}
