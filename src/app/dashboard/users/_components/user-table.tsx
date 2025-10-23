@@ -24,15 +24,16 @@ interface SelectedElementProps {
     confirm: () => void;
   };
 }
+interface PropsType  {
+  users: USER_DATA_T[];
+  isLoading?: boolean;
+  onUpdateStatus: (id: string, user: Partial<USER_DATA_T>) => void;
+}
 const UserTable = ({
   users,
   isLoading,
   onUpdateStatus,
-}: {
-  users: USER_DATA_T[];
-  isLoading?: boolean;
-  onUpdateStatus: (id: string, user: Partial<USER_DATA_T>) => void;
-}) => {
+}: PropsType) => {
   const searchParams = useSearchParams();
 
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);

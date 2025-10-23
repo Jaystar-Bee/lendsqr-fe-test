@@ -23,6 +23,12 @@
         background-color: #fff;
         justify-content: space-between;
 
+        .loading {
+            margin-top: 16px;
+            font-size: 28px;
+            color: var(--subtitle-color);
+        }
+
         &-icon {
             display: flex;
             align-items: center;

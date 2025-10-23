@@ -1,5 +1,7 @@
 import Image from "next/image";
 import styles from "./card-section.module.scss";
+import { useEffect, useState } from "react";
+import Iconify from "@/components/element/icons/iconify";
 
 const cardList = [
   {
@@ -28,14 +30,51 @@ const cardList = [
   },
 ];
 
-const CardSection = () => {
+interface PropsType {
+  activeUsers: number;
+  allUsers: number;
+  usersWithLoans: number;
+  usersWithSavings: number;
+  loading?: boolean;
+}
+
+const CardSection = ({
+  activeUsers,
+  allUsers,
+  usersWithLoans,
+  usersWithSavings,
+  loading,
+}: PropsType) => {
+  const [cardListUpdated, setCardListUpdated] = useState(cardList);
+
+  useEffect(() => {
+    const updatedCardList = cardList.map((item) => {
+      if (item.title === "Active Users") {
+        return { ...item, count: activeUsers };
+      }
+      if (item.title === "Users") {
+        return { ...item, count: allUsers };
+      }
+      if (item.title === "Users With Loans") {
+        return { ...item, count: usersWithLoans };
+      }
+      if (item.title === "Users With Savings") {
+        return { ...item, count: usersWithSavings };
+      }
+      return item;
+    });
+    setCardListUpdated(updatedCardList);
+  }, [activeUsers, allUsers, usersWithLoans, usersWithSavings]);
   return (
     <div>
       <ul className={styles.container}>
-        {cardList.map((item, index) => (
+        {cardListUpdated.map((item, index) => (
           <li key={index}>
             <div className={styles.card}>
-              <div className={styles["card-icon"]} style={{backgroundColor: item.color}}>
+              <div
+                className={styles["card-icon"]}
+                style={{ backgroundColor: item.color }}
+              >
                 <Image
                   src={item.icon}
                   alt={item.title}
@@ -45,7 +84,13 @@ const CardSection = () => {
               </div>
               <div className={styles["card-content"]}>
                 <h3>{item.title}</h3>
-                <h1>{item.count?.toLocaleString()}</h1>
+                {loading ? (
+                  <div className={styles.loading}>
+                    <Iconify icon="eos-icons:bubble-loading" />
+                  </div>
+                ) : (
+                  <h1>{item.count?.toLocaleString()}</h1>
+                )}
               </div>
             </div>
           </li>
